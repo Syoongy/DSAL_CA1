@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Enum;
 
 /**
  *
  * @author BN
  */
-public class Project {
-    Student[] student;
-    
-    
+public enum Gender {
+    MALE, FEMALE
 }
