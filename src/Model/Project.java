@@ -11,6 +11,9 @@ package Model;
  */
 public class Project {
     Student[] student;
+    String projectTittle;
+    String school;
+    String supervisorName;
     
     
 }
