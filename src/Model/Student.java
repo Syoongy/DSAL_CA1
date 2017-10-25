@@ -10,5 +10,9 @@ package Model;
  * @author BN
  */
 public class Student {
-    
+    private String admissionNo;
+    private String name;
+    private String Course;
+    private String gender;
+          
 }
