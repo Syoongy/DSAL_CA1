@@ -33,7 +33,7 @@ public class ProjectFile {
             line = br.readLine();
             
 	    for(int u=0;u<numOfProject;u++){
-                StringTokenizer tokenizer = new StringTokenizer(br.readLine(),",");
+                StringTokenizer tokenizer = new StringTokenizer(line,",");
                 while(tokenizer.hasMoreTokens()) {//process tokens in line
                     token = tokenizer.nextToken();
                     String projectTitle = tokenizer.nextToken();
