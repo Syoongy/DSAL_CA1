@@ -21,7 +21,7 @@ public class ProjectFile {
     
     public static void readFile(String fileName) throws FileNotFoundException{
         BufferedReader br;
-        String line, token;
+        String line;
         int numOfProject;
         
         try{	
@@ -35,7 +35,6 @@ public class ProjectFile {
 	    for(int u=0;u<numOfProject;u++){
                 StringTokenizer tokenizer = new StringTokenizer(line,",");
                 while(tokenizer.hasMoreTokens()) {//process tokens in line
-                    token = tokenizer.nextToken();
                     String projectTitle = tokenizer.nextToken();
                     String school = tokenizer.nextToken();
                     String supervisorName = tokenizer.nextToken();
