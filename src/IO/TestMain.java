@@ -5,6 +5,7 @@
  */
 package IO;
 
+import Model.Project;
 import java.io.FileNotFoundException;
 
 /**
@@ -13,7 +14,9 @@ import java.io.FileNotFoundException;
  */
 public class TestMain {
     public static void main(String[] args) throws FileNotFoundException {
-        ProjectFile.readFile("src/DataFile/projects.txt");
+        Project[] projects = ProjectFile.readFile("src/DataFile/projects.txt");
+        System.out.println(projects);
+        ProjectFile.writeFile(projects,"src/DataFile/output.txt");
     }
  
 }

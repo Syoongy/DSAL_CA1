@@ -1,0 +1,15 @@
+Title:		iPhone App
+School:		EEE
+Supervisor:	John Tan
+Students:	Kelvin Tay
+---------------
+Title:		iPad App
+School:		DMIT
+Supervisor:	Mark Goh
+Students:	Felicia Wong  ==>  Rachel Chang  ==>  Lewis Poh
+---------------
+Title:		Green Living
+School:		DMIT
+Supervisor:	Audrey Lim
+Students:	Peter Chua  ==>  Ng Ming Shu
+---------------
