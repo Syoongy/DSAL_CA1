@@ -25,9 +25,9 @@
                 <InnerShadow />
             </effect>
         </Rectangle>
-        <JFXTextField editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="113.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Title" style="-fx-font-size: 32; -fx-prompt-text-fill: #eda678; -fx-text-fill: #eda678;" unFocusColor="#eda678" />
-        <JFXTextField editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="215.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="School" style="-fx-font-size: 32; -fx-prompt-text-fill: #eda678; -fx-text-fill: #eda678;" unFocusColor="#eda678" />
-        <JFXTextField editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="318.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Supervisor" style="-fx-font-size: 32; -fx-prompt-text-fill: #eda678; -fx-text-fill: #eda678;" unFocusColor="#eda678" />
+        <JFXTextField editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="113.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Title" style="-fx-font-size: 32; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
+        <JFXTextField editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="215.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="School" style="-fx-font-size: 32; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
+        <JFXTextField editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="318.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Supervisor" style="-fx-font-size: 32; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
         <JFXTreeTableView layoutX="378.0" layoutY="469.0" prefHeight="227.0" prefWidth="644.0" />
         <Label fx:id="lblProject2" layoutX="381.0" layoutY="412.0" style="-fx-font-size: 32; -fx-text-fill: #eda678;" text="Student(s)" />
         <Rectangle arcHeight="5.0" arcWidth="1.0" fill="WHITE" height="781.0" layoutX="1074.0" layoutY="-8.0" opacity="0.24" stroke="WHITE" strokeType="INSIDE" width="5.0">
@@ -36,9 +36,9 @@
             </effect>
         </Rectangle>
         <JFXButton layoutX="882.0" layoutY="712.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
-      <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="131.0" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 24;" unFocusColor="#ffffff80" />
-      <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="233.0" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 24;" unFocusColor="#ffffff80" />
-      <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="336.0" promptText="Course" style="-fx-prompt-text-fill: FFF; -fx-font-size: 24;" unFocusColor="#ffffff80" />
+      <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="131.0" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 24; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
+      <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="233.0" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 24; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
+      <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="336.0" promptText="Course" style="-fx-prompt-text-fill: FFF; -fx-font-size: 24; -fx-text-fill: fff;" unFocusColor="#ffffff80" />
       <JFXComboBox fx:id="genderBox" focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="444.0" prefHeight="51.0" prefWidth="176.0" promptText="Gender" style="-fx-font-size: 24; -fx-prompt-text-fill: FFF; -fx-text-fill: FFF;" unFocusColor="WHITE" visibleRowCount="2" />
       <JFXButton layoutX="1245.0" layoutY="712.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="EDIT" />
     </children>
