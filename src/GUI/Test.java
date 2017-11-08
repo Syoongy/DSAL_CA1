@@ -36,11 +36,7 @@ public class Test extends Application {
             stage.setY(event.getScreenY() - yOffset);
         });
         Scene scene = new Scene(root);
-        Platform.setImplicitExit(false);
-
-        scene.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2) Platform.exit();
-        });
+        //Platform.setImplicitExit(false);
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
