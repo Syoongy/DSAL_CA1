@@ -1,0 +1,16 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12 Nov, 2017, 1:14:19 PM
+    Author     : Fan Syong Yue
+*/
+.jfx-hamburger StackPane { 
+    -fx-background-color:  #eda678; 
+}
+
+.noRadius {
+    -fx-background-radius: 0;
+}
