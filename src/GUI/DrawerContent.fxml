@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="VBox" prefHeight="640.0" prefWidth="192.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton accessibleText="projectTitleSideMenuBtn" buttonType="RAISED" prefHeight="160.0" prefWidth="192.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" styleClass="noRadius" stylesheets="@design.css" text="Project Title">
+         <effect>
+            <DropShadow />
+         </effect>
+      </JFXButton>
+      <JFXButton accessibleText="schoolSideMenuBtn" buttonType="RAISED" prefHeight="160.0" prefWidth="192.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" styleClass="noRadius" stylesheets="@design.css" text="School">
+         <effect>
+            <DropShadow />
+         </effect>
+      </JFXButton>
+      <JFXButton accessibleText="supervisorSideMenuBtn" buttonType="RAISED" prefHeight="160.0" prefWidth="192.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" styleClass="noRadius" stylesheets="@design.css" text="Supervisor">
+         <effect>
+            <DropShadow />
+         </effect>
+      </JFXButton>
+      <JFXButton accessibleText="studentsSideMenuBtn" buttonType="RAISED" prefHeight="160.0" prefWidth="192.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" styleClass="noRadius" stylesheets="@design.css" text="Students">
+         <effect>
+            <DropShadow />
+         </effect>
+      </JFXButton>
+   </children>
+</VBox>
