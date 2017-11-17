@@ -8,11 +8,16 @@ package GUI;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  *
@@ -32,6 +37,9 @@ public class MainGUIController implements Initializable {
     private JFXTextField TFadminNo;
     
 
+    @FXML
+    private ImageView imgBtnClose;
+
     public MainGUIController() {
 
     }
@@ -41,6 +49,10 @@ public class MainGUIController implements Initializable {
         // TODO
 
         genderBox.setItems(genderList);
+    }
+
+    public void closeApp(MouseEvent evt) {
+        Platform.exit();
     }
 
 }

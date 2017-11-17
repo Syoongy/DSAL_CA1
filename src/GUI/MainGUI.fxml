@@ -36,9 +36,9 @@
             </effect>
         </Rectangle>
         <JFXButton layoutX="882.0" layoutY="712.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
-      <JFXTextField fx:id="TFadminNo" focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="131.0" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 24; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
-      <JFXTextField fx:id="TFname" focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="233.0" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 24; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
-      <JFXTextField fx:id="TFcourse" focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="336.0" promptText="Course" style="-fx-prompt-text-fill: FFF; -fx-font-size: 24; -fx-text-fill: fff;" unFocusColor="#ffffff80" />
+      <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="131.0" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 24; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
+      <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="233.0" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 24; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
+      <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="336.0" promptText="Course" style="-fx-prompt-text-fill: FFF; -fx-font-size: 24; -fx-text-fill: fff;" unFocusColor="#ffffff80" />
       <JFXComboBox fx:id="genderBox" focusColor="#eda678" labelFloat="true" layoutX="1110.0" layoutY="444.0" prefHeight="51.0" prefWidth="176.0" promptText="Gender" style="-fx-font-size: 24; -fx-prompt-text-fill: FFF; -fx-text-fill: FFF;" unFocusColor="WHITE" visibleRowCount="2" />
       <JFXButton layoutX="1245.0" layoutY="712.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="EDIT" />
     </children>
