@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -23,6 +24,13 @@ public class MainGUIController implements Initializable {
 
     @FXML
     private ComboBox genderBox;
+    @FXML
+    private JFXTextField TFcourse;
+    @FXML
+    private JFXTextField TFname;
+    @FXML
+    private JFXTextField TFadminNo;
+    
 
     public MainGUIController() {
 
