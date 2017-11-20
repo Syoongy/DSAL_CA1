@@ -52,9 +52,6 @@ public class Project {
         return students.size();
     }
 
-    public void setNumOfStudents(int numOfStudents) {
-        this.numOfStudents = numOfStudents;
-    }
 
     public ArrayList<Student> getStudents() {
         return students;
