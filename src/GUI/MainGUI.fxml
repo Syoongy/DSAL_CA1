@@ -37,32 +37,27 @@
                 <InnerShadow />
             </effect>
         </Rectangle>
-        <JFXTextField fx:id="tfTitle" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="113.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Title" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
-        <JFXTextField fx:id="tfSchool" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="215.0" mouseTransparent="true" prefHeight="49.0" prefWidth="207.0" promptText="School" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
-        <JFXTextField fx:id="tfSupervisor" focusColor="#eda678" labelFloat="true" layoutX="612.0" layoutY="215.0" mouseTransparent="true" prefHeight="49.0" prefWidth="411.0" promptText="Supervisor" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
-      <Pane layoutX="366.0" layoutY="308.0" prefHeight="449.0" prefWidth="671.0" style="-fx-border-color: #eda678; -fx-border-width: 3px; -fx-border-radius: 10px;">
+        <JFXTextField fx:id="tfProjectTitle" editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="113.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Title" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
+        <JFXTextField fx:id="tfSchool" editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="215.0" mouseTransparent="true" prefHeight="49.0" prefWidth="166.0" promptText="School" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
+        <JFXTextField fx:id="tfSupervisor" editable="false" focusColor="#eda678" labelFloat="true" layoutX="560.0" layoutY="216.0" mouseTransparent="true" prefHeight="49.0" prefWidth="462.0" promptText="Supervisor" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
+      <Pane layoutX="381.0" layoutY="318.0" prefHeight="439.0" prefWidth="644.0" style="-fx-border-color: #eda678; -fx-border-radius: 10px; -fx-border-width: 3px;">
          <children>
-              <Label fx:id="lblProject2" layoutX="14.0" style="-fx-font-size: 32; -fx-text-fill: #eda678;" text="Student(s)" />
-              <JFXButton layoutX="40.0" layoutY="360.0" onMouseClicked="#addStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
-            <JFXListView layoutX="16.0" layoutY="47.0" prefHeight="305.0" prefWidth="188.0" />
-            <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="291.0" layoutY="47.0" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
-            <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="291.0" layoutY="127.0" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
-            <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="291.0" layoutY="203.0" promptText="Course" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: fff;" unFocusColor="#ffffff80" />
-            <JFXComboBox fx:id="genderBox" focusColor="#eda678" labelFloat="true" layoutX="291.0" layoutY="291.0" prefHeight="51.0" prefWidth="176.0" promptText="Gender" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: FFF;" styleClass="jfx-combobox" stylesheets="@design.css" unFocusColor="WHITE" visibleRowCount="2" />
-            <JFXButton layoutX="515.0" layoutY="360.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="SAVE" />
+              <Label fx:id="lblProject2" layoutX="14.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="Student(s)" />
+            <JFXListView layoutX="14.0" layoutY="40.0" prefHeight="325.0" prefWidth="176.0" />
+              <JFXButton layoutX="32.0" layoutY="381.0" onMouseClicked="#addStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
+            <JFXTextField fx:id="tfAdminNo" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="40.0" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
+            <JFXTextField fx:id="tfName" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="119.0" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
+            <JFXTextField fx:id="tfCourse" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="208.0" promptText="Course" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
+            <JFXComboBox fx:id="genderBox" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="294.0" prefHeight="51.0" prefWidth="176.0" promptText="Gender" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: FFF;" unFocusColor="WHITE" visibleRowCount="2" />
+            <JFXButton layoutX="466.0" layoutY="379.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
          </children>
       </Pane>
-      <JFXCheckBox fx:id="chkbxEdit" checkedColor="#eda678" layoutX="1161.0" layoutY="138.0" styleClass="custom-checkbox" stylesheets="@design.css" text="Edit Mode" textFill="WHITE" unCheckedColor="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXCheckBox>
-      <JFXButton fx:id="btnUpdate" disable="true" layoutX="1161.0" layoutY="203.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="UPDATE" />
-      <Pane layoutX="1056.0" layoutY="308.0" prefHeight="449.0" prefWidth="342.0" style="-fx-border-color: #eda678; -fx-border-width: 3px; -fx-border-radius: 10px;">
+      <Pane layoutX="1057.0" layoutY="318.0" prefHeight="439.0" prefWidth="322.0" style="-fx-border-color: #eda678; -fx-border-radius: 10px; -fx-border-width: 3px;">
          <children>
-            <Label fx:id="lblProject21" layoutX="14.0" style="-fx-font-size: 32; -fx-text-fill: #eda678;" text="Save" />
-            <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="14.0" layoutY="79.0" promptText="File Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
-            <JFXRadioButton layoutY="201.0" selected="true" styleClass="custom-radio-button" stylesheets="@design.css" text="TXT" textFill="WHITE">
+            <Label fx:id="lblProject21" layoutX="14.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="Save" />
+            <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="14.0" layoutY="65.0" promptText="File Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
+            <Label fx:id="lblProject211" layoutX="14.0" layoutY="127.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="File Type" />
+            <JFXRadioButton layoutY="188.0" selected="true" styleClass="custom-jfx-radiobutton" stylesheets="@design.css" text="TXT" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -70,13 +65,19 @@
                   <ToggleGroup fx:id="fileTypeToggleGroup" />
                </toggleGroup>
             </JFXRadioButton>
-            <Label fx:id="lblProject211" layoutX="14.0" layoutY="141.0" style="-fx-font-size: 32; -fx-text-fill: #eda678;" text="File Type" />
-            <JFXRadioButton layoutY="241.0" styleClass="custom-radio-button" stylesheets="@design.css" text="DAT" textFill="WHITE" toggleGroup="$fileTypeToggleGroup">
+            <JFXRadioButton layoutY="227.0" styleClass="custom-jfx-radiobutton" stylesheets="@design.css" text="DAT" textFill="WHITE" toggleGroup="$fileTypeToggleGroup">
                <font>
                   <Font size="20.0" />
                </font>
             </JFXRadioButton>
-            <JFXButton layoutX="188.0" layoutY="360.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="SAVE" />
-         </children></Pane>
+            <JFXButton layoutX="168.0" layoutY="381.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="SAVE" />
+         </children>
+      </Pane>
+      <JFXButton fx:id="btnUpdateProject" disable="true" layoutX="1148.0" layoutY="197.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
+      <JFXCheckBox fx:id="chkbxEditMode" checkedColor="#eda678" layoutX="1148.0" layoutY="138.0" styleClass="custom-jfx-checkbox" stylesheets="@design.css" text="Edit Mode" textFill="WHITE" unCheckedColor="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXCheckBox>
     </children>
 </AnchorPane>

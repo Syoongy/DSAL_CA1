@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +20,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -39,24 +37,23 @@ public class MainGUIController implements Initializable {
     @FXML
     private ComboBox genderBox;
     @FXML
-    private JFXTextField TFcourse;
-    @FXML
-    private JFXTextField TFname;
-    @FXML
-    private JFXTextField TFadminNo;
-    @FXML
-    private JFXTextField tfTitle;
+    private JFXTextField tfProjectTitle;
     @FXML
     private JFXTextField tfSchool;
     @FXML
     private JFXTextField tfSupervisor;
     @FXML
-    private JFXCheckBox chkbxEdit;
+    private JFXTextField tfAdminNo;
     @FXML
-    private JFXButton btnUpdate;
-
+    private JFXTextField tfName;
     @FXML
-    private ImageView imgBtnClose;
+    private JFXTextField tfCourse;
+    @FXML
+    private JFXCheckBox chkbxEditMode;
+    @FXML
+    private JFXButton btnUpdateProject;
+    
+    
 
     public MainGUIController() {
 
@@ -65,26 +62,21 @@ public class MainGUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
         genderBox.setItems(genderList);
 
-        chkbxEdit.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+        chkbxEditMode.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (newValue) {
-                tfTitle.setMouseTransparent(false);
+                tfProjectTitle.setMouseTransparent(false);
                 tfSchool.setMouseTransparent(false);
                 tfSupervisor.setMouseTransparent(false);
-                btnUpdate.setDisable(false);
+                btnUpdateProject.setDisable(false);
             } else {
-                tfTitle.setMouseTransparent(true);
+                tfProjectTitle.setMouseTransparent(true);
                 tfSchool.setMouseTransparent(true);
                 tfSupervisor.setMouseTransparent(true);
-                btnUpdate.setDisable(true);
+                btnUpdateProject.setDisable(true);
             }
         });
-
-    }
-
-    public void enableEditMode(MouseEvent evt) {
 
     }
 

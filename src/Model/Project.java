@@ -16,14 +16,12 @@ public class Project {
     private String projectTitle;
     private String school;
     private String supervisorName;
-    private int numOfStudents;
     private ArrayList<Student> students = new ArrayList<Student>();
     
-    public Project(String projectTitle, String school, String supervisorName, int numOfStudents){
+    public Project(String projectTitle, String school, String supervisorName){
         this.projectTitle = projectTitle;
         this.school = school;
         this.supervisorName = supervisorName;
-        this.numOfStudents = numOfStudents;
     }
 
     public String getProjectTitle() {
@@ -51,21 +49,21 @@ public class Project {
     }
 
     public int getNumOfStudents() {
-        return numOfStudents;
+        return students.size();
     }
 
-    public void setNumOfStudents(int numOfStudents) {
-        this.numOfStudents = numOfStudents;
-    }
 
     public ArrayList<Student> getStudents() {
         return students;
     }
 
     
-    public void addStudent(String admissionNo, String name, String course, Gender gender){
-        Student student = new Student(admissionNo, name, course, gender);
+    public void addStudent(Student student){       
         students.add(student);        
+    }
+    
+    public void deleteStudent(int position){
+        students.remove(position);
     }
     
     
