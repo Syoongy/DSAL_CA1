@@ -11,6 +11,16 @@ and open the template in the editor.
     -fx-background-color:  #eda678; 
 }
 
+.custom-jfx-radiobutton {
+    -jfx-selected-color: #eda678;
+    -jfx-unselected-color: #FFF;
+}
+
+.custom-jfx-checkbox {
+    -jfx-checked-color: #eda678;
+    -jfx-unchecked-color: #FFF;
+}
+
 .noRadius {
     -fx-background-radius: 0;
 }
