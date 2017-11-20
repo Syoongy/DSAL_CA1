@@ -118,16 +118,16 @@ public class ProjectFile {
         }
     }
     
-    public static void writeFile(Project[] projects,String fileName) {
+    public static void writeFile(ArrayList<Project> projects,String fileName) {
         BufferedWriter bw = null;
         FileWriter fw = null;
         String content = "";
 
-        for (int i = 0; i < projects.length; i++) {
-            content += "Title:\t\t" + projects[i].getProjectTitle() + "\r\n";
-            content += "School:\t\t" + projects[i].getSchool() + "\r\n";
-            content += "Supervisor:\t" + projects[i].getSupervisorName() + "\r\n";
-            List<Student> students = projects[i].getStudents();
+        for (int i = 0; i < projects.size(); i++) {
+            content += "Title:\t\t" + projects.get(i).getProjectTitle() + "\r\n";
+            content += "School:\t\t" + projects.get(i).getSchool() + "\r\n";
+            content += "Supervisor:\t" + projects.get(i).getSupervisorName() + "\r\n";
+            List<Student> students = projects.get(i).getStudents();
             content += "Students:\t";
             for (int u = 0; u < students.size(); u++) {
                 content += students.get(u).getName();

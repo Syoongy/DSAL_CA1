@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class TestMain {
     private ArrayList<Project>  projects = new ArrayList<>();
     public static void main(String[] args) throws FileNotFoundException {
-        Project[] projects = ProjectFile.readFile("src/DataFile/projects.txt");
+        ArrayList<Project> projects = ProjectFile.readFile("src/DataFile/projects.txt");
         System.out.println(projects);
         ProjectFile.writeFile(projects,"src/DataFile/output.txt");
     }
