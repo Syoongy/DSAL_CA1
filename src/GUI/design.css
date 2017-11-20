@@ -11,6 +11,24 @@ and open the template in the editor.
     -fx-background-color:  #eda678; 
 }
 
+.jfx-combobox ListView {
+    -fx-text-fill: #FFF;
+}
+
+.custom-checkbox {
+    -jfx-checked-color: #eda678;
+    -jfx-unchecked-color: #FFF;
+}
+
+.custom-radio-button {
+    -jfx-selected-color: #eda678;
+    -jfx-unselected-color: #FFF;
+}
+
+.custom-combobox {
+    -fx-text-fill: #FFF;
+    -fx-font-size:  20;
+}
 .noRadius {
     -fx-background-radius: 0;
 }
