@@ -9,9 +9,11 @@
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -37,9 +39,9 @@
                 <InnerShadow />
             </effect>
         </Rectangle>
-        <JFXTextField fx:id="tfProjectTitle" editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="113.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Title" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
-        <JFXTextField fx:id="tfSchool" editable="false" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="215.0" mouseTransparent="true" prefHeight="49.0" prefWidth="166.0" promptText="School" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
-        <JFXTextField fx:id="tfSupervisor" editable="false" focusColor="#eda678" labelFloat="true" layoutX="560.0" layoutY="216.0" mouseTransparent="true" prefHeight="49.0" prefWidth="462.0" promptText="Supervisor" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
+        <JFXTextField fx:id="tfProjectTitle" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="113.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Title" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #FFF;" unFocusColor="#ffffff80" />
+        <JFXTextField fx:id="tfSchool" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="215.0" mouseTransparent="true" prefHeight="49.0" prefWidth="166.0" promptText="School" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #FFF;" unFocusColor="#ffffff80" />
+        <JFXTextField fx:id="tfSupervisor" focusColor="#eda678" labelFloat="true" layoutX="560.0" layoutY="216.0" mouseTransparent="true" prefHeight="49.0" prefWidth="462.0" promptText="Supervisor" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #FFF;" unFocusColor="#ffffff80" />
       <Pane layoutX="381.0" layoutY="318.0" prefHeight="439.0" prefWidth="644.0" style="-fx-border-color: #eda678; -fx-border-radius: 10px; -fx-border-width: 3px;">
          <children>
               <Label fx:id="lblProject2" layoutX="14.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="Student(s)" />

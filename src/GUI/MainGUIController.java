@@ -33,7 +33,7 @@ public class MainGUIController implements Initializable {
 
     ObservableList<String> genderList = FXCollections.observableArrayList("Male", "Female");
     private double xOffset = 0, yOffset = 0;
-
+    
     @FXML
     private ComboBox genderBox;
     @FXML
@@ -63,21 +63,22 @@ public class MainGUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         genderBox.setItems(genderList);
-
         chkbxEditMode.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            if (newValue) {
+            // TODO Auto-generated method stub
+            if(newValue){
+                // checkbox has been ticked.
                 tfProjectTitle.setMouseTransparent(false);
                 tfSchool.setMouseTransparent(false);
                 tfSupervisor.setMouseTransparent(false);
                 btnUpdateProject.setDisable(false);
-            } else {
+            }else{
+                // checkbox has been unticked
                 tfProjectTitle.setMouseTransparent(true);
                 tfSchool.setMouseTransparent(true);
                 tfSupervisor.setMouseTransparent(true);
                 btnUpdateProject.setDisable(true);
             }
         });
-
     }
 
     public void closeApp(MouseEvent evt) {
@@ -97,11 +98,12 @@ public class MainGUIController implements Initializable {
             stage.setY(event.getScreenY() - yOffset);
         });
         Scene scene = new Scene(root);
+        //Platform.setImplicitExit(false);
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
     }
-
+    
     public void addStudent(MouseEvent evt) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("AddStudent.fxml"));
         Stage stage = new Stage();
@@ -115,6 +117,7 @@ public class MainGUIController implements Initializable {
             stage.setY(event.getScreenY() - yOffset);
         });
         Scene scene = new Scene(root);
+        //Platform.setImplicitExit(false);
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();

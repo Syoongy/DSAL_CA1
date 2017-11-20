@@ -10,6 +10,7 @@ and open the template in the editor.
 .jfx-hamburger StackPane { 
     -fx-background-color:  #eda678; 
 }
+
 .custom-jfx-radiobutton {
     -jfx-selected-color: #eda678;
     -jfx-unselected-color: #FFF;
