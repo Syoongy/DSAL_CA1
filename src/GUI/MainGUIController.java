@@ -5,10 +5,14 @@
  */
 package GUI;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,7 +35,7 @@ public class MainGUIController implements Initializable {
 
     ObservableList<String> genderList = FXCollections.observableArrayList("Male", "Female");
     private double xOffset = 0, yOffset = 0;
-    
+
     @FXML
     private ComboBox genderBox;
     @FXML
@@ -40,7 +44,16 @@ public class MainGUIController implements Initializable {
     private JFXTextField TFname;
     @FXML
     private JFXTextField TFadminNo;
-    
+    @FXML
+    private JFXTextField tfTitle;
+    @FXML
+    private JFXTextField tfSchool;
+    @FXML
+    private JFXTextField tfSupervisor;
+    @FXML
+    private JFXCheckBox chkbxEdit;
+    @FXML
+    private JFXButton btnUpdate;
 
     @FXML
     private ImageView imgBtnClose;
@@ -54,6 +67,25 @@ public class MainGUIController implements Initializable {
         // TODO
 
         genderBox.setItems(genderList);
+
+        chkbxEdit.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (newValue) {
+                tfTitle.setMouseTransparent(false);
+                tfSchool.setMouseTransparent(false);
+                tfSupervisor.setMouseTransparent(false);
+                btnUpdate.setDisable(false);
+            } else {
+                tfTitle.setMouseTransparent(true);
+                tfSchool.setMouseTransparent(true);
+                tfSupervisor.setMouseTransparent(true);
+                btnUpdate.setDisable(true);
+            }
+        });
+
+    }
+
+    public void enableEditMode(MouseEvent evt) {
+
     }
 
     public void closeApp(MouseEvent evt) {
@@ -73,7 +105,24 @@ public class MainGUIController implements Initializable {
             stage.setY(event.getScreenY() - yOffset);
         });
         Scene scene = new Scene(root);
-        //Platform.setImplicitExit(false);
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void addStudent(MouseEvent evt) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("AddStudent.fxml"));
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.TRANSPARENT);
+        root.setOnMousePressed((MouseEvent event) -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged((MouseEvent event) -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+        Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
