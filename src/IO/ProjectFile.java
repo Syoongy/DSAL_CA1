@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -24,18 +25,18 @@ import java.util.StringTokenizer;
  */
 public class ProjectFile {
 
-    public static Project[] readFile(String fileName) throws FileNotFoundException {
+    public static ArrayList<Project> readFile(String fileName) throws FileNotFoundException {
         BufferedReader br;
         String line;
         int numOfProject;
-        Project[] projects;
+        ArrayList<Project> projects;
 
         try {
             br = new BufferedReader(new FileReader(fileName));
 
             String firstLine = br.readLine();
             numOfProject = Integer.parseInt(firstLine);
-            projects = new Project[numOfProject];
+            projects = new ArrayList<>();
             line = br.readLine();
 
             for (int u = 0; u < numOfProject; u++) {
@@ -45,7 +46,7 @@ public class ProjectFile {
                     String school = tokenizer.nextToken();
                     String supervisorName = tokenizer.nextToken();
                     int numOfStudents = Integer.parseInt(tokenizer.nextToken());
-                    Project project = new Project(projectTitle, school, supervisorName, numOfStudents);
+                    Project project = new Project(projectTitle, school, supervisorName);
                     for (int i = 0; i < numOfStudents; i++) {
                         String admissionNo = tokenizer.nextToken();
                         String name = tokenizer.nextToken();
@@ -55,9 +56,10 @@ public class ProjectFile {
                         if (g.equals("F")) {
                             gender = Gender.FEMALE;
                         }
-                        project.addStudent(admissionNo, name, course, gender);
+                        Student student = new Student(admissionNo, name, course, gender);
+                        project.addStudent(student);
                     }
-                    projects[u] = project;
+                    projects.add(project);
                 }//close inner while
 
                 line = br.readLine();
@@ -67,11 +69,55 @@ public class ProjectFile {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-
         return null;
-
     }
 
+    public static void saveToFile(ArrayList<Project> projects,String fileName){
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+        String content = "";
+        content += projects.size();
+
+        for (int i = 0; i < projects.size(); i++) {
+            content += projects.get(i).getProjectTitle();
+            content += "," + projects.get(i).getSchool();
+            content += "," + projects.get(i).getSupervisorName();  
+            List<Student> students =  projects.get(i).getStudents();
+            content += "," + students.size();
+            for (int u = 0; u < students.size(); u++) {
+                content += "," + students.get(u).getAdmissionNo() ;
+                content += "," + students.get(u).getName();
+                content += "," + students.get(u).getCourse();
+                content += "," + students.get(u).getGender();
+            }
+            content += "\r\n";
+           
+        }
+
+        try {
+
+            File file = new File(fileName);
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fw = new FileWriter(file);
+            bw = new BufferedWriter(fw);
+            bw.write(content);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error in closing the BufferedWriter" + ex);
+            }
+        }
+    }
+    
     public static void writeFile(Project[] projects,String fileName) {
         BufferedWriter bw = null;
         FileWriter fw = null;
