@@ -19,8 +19,8 @@
 
 <AnchorPane id="AnchorPane" fx:id="base" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgba(61,73,86,0.9);" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainGUIController"> <!--xmlns="http://javafx.com/javafx/8.0.141"-->
     <children>
-          <JFXTreeTableView currentItemsCount="5" layoutX="14.0" layoutY="64.0" prefHeight="637.0" prefWidth="294.0" />
-          <JFXButton layoutX="17.0" layoutY="712.0" onMouseClicked="#addProject" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
+          <JFXTreeTableView fx:id="ttvProjects" currentItemsCount="5" layoutX="14.0" layoutY="64.0" prefHeight="637.0" prefWidth="294.0" />
+          <JFXButton layoutX="17.0" layoutY="712.0" onAction="#addProject" onMouseClicked="#addProject" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
           <JFXButton layoutX="165.0" layoutY="712.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="DELETE" />
         <AnchorPane fx:id="titleBar" prefHeight="63.0" prefWidth="1410.0" style="-fx-background-color: #16222d;">
             <children>
