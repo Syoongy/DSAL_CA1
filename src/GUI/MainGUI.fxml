@@ -44,7 +44,7 @@
       <Pane layoutX="381.0" layoutY="318.0" prefHeight="439.0" prefWidth="644.0" style="-fx-border-color: #eda678; -fx-border-radius: 10px; -fx-border-width: 3px;">
          <children>
               <Label fx:id="lblProject2" layoutX="14.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="Student(s)" />
-            <JFXListView layoutX="14.0" layoutY="40.0" prefHeight="325.0" prefWidth="176.0" />
+            <JFXListView fx:id="lvStudents" layoutX="14.0" layoutY="40.0" prefHeight="325.0" prefWidth="176.0" />
               <JFXButton layoutX="32.0" layoutY="381.0" onMouseClicked="#addStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
             <JFXTextField fx:id="tfAdminNo" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="40.0" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
             <JFXTextField fx:id="tfName" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="119.0" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />

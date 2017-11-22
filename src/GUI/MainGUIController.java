@@ -7,8 +7,10 @@ package GUI;
 
 import IO.ProjectFile;
 import Model.Project;
+import Model.Student;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -27,6 +29,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,7 +54,8 @@ import javafx.util.Callback;
 public class MainGUIController implements Initializable {
 
     ArrayList<Project> projects = new ArrayList<>();
-    int currentProjectIndex = 1;
+    int currentProjectIndex = 0;
+    int currentStudentIndex = 0;
     
     ObservableList<String> genderList = FXCollections.observableArrayList("Male", "Female");
     private double xOffset = 0, yOffset = 0;
@@ -76,6 +80,9 @@ public class MainGUIController implements Initializable {
     private JFXButton btnUpdateProject;
     @FXML
     private JFXTreeTableView<ttvProject> ttvProjects;
+    @FXML
+    private JFXListView<String> lvStudents;
+
     
     
 
@@ -114,7 +121,7 @@ public class MainGUIController implements Initializable {
             Logger.getLogger(MainGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
         setUpTreeTableViewProject();
-        displaySelectedProject();
+
     }
     
     
@@ -122,6 +129,18 @@ public class MainGUIController implements Initializable {
         tfProjectTitle.setText(projects.get(currentProjectIndex).getProjectTitle());
         tfSchool.setText(projects.get(currentProjectIndex).getSchool());
         tfSupervisor.setText(projects.get(currentProjectIndex).getSupervisorName());
+        //setUpTreeTableViewStudent();
+        setUpListViewStudent();
+        
+    }
+    
+    public void displaySelectedStudent(){
+        ArrayList<Student> students = projects.get(currentProjectIndex).getStudents();
+        tfAdminNo.setText(students.get(currentStudentIndex).getAdmissionNo());
+        tfCourse.setText(students.get(currentStudentIndex).getCourse());
+        tfName.setText(students.get(currentStudentIndex).getName());
+        genderBox.setValue(students.get(currentStudentIndex).getGender());
+        
     }
 
     public void closeApp(MouseEvent evt) {
@@ -206,19 +225,49 @@ public class MainGUIController implements Initializable {
         
         //add listener to the tree table view's row
         ttvProjects.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
                 ttvProject p = ttvProjects.getSelectionModel().getSelectedItem().getValue();     
                 for(int i=0;i<projects.size();i++){
-                    if(p.title.equals(projects.get(i).getProjectTitle())){
-                        currentProjectIndex = i;
-                        displaySelectedProject();
-                        break;
+                    if(p.title.getValue().equals(projects.get(i).getProjectTitle())){
+                        if(p.school.getValue().equals(projects.get(i).getSchool())){
+                            currentProjectIndex = i;
+                            displaySelectedProject();
+                            break;
+                        }
+                      
                     }
                 }
-            }
+            
         });
 
     }
+    
+    
+    public void setUpListViewStudent(){
+        ArrayList<Student> students = projects.get(currentProjectIndex).getStudents();
+        lvStudents.getItems().clear();
+        for(int i=0;i<students.size();i++){
+            lvStudents.getItems().add(students.get(i).getName());
+        }
+        
+        lvStudents.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                ArrayList<Student> students = projects.get(currentProjectIndex).getStudents();
+                String name = lvStudents.getSelectionModel().getSelectedItem();
+                for(int i=0;i<students.size();i++){
+                    if(students.get(i).getName().equals(name)){
+                        currentStudentIndex = i;
+                        displaySelectedStudent();
+                        break;
+                    }
+                    
+                 };                
+            }
+        });
+        
+    }
+    
     
     class ttvProject extends RecursiveTreeObject<ttvProject>{
         StringProperty title;
@@ -231,4 +280,10 @@ public class MainGUIController implements Initializable {
             this.supervisor = new SimpleStringProperty(supervisor);           
         }
     }
+    
+ 
+    public void actionPerformed() {
+        genderBox.setDisable(!chkbxEditMode.isSelected());
+    }
+    
 }
