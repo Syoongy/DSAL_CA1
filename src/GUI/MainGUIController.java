@@ -94,6 +94,7 @@ public class MainGUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         genderBox.setItems(genderList);
+        genderBox.setDisable(true);
         chkbxEditMode.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             // TODO Auto-generated method stub
             if(newValue){

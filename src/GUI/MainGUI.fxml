@@ -75,7 +75,7 @@
          </children>
       </Pane>
       <JFXButton fx:id="btnUpdateProject" disable="true" layoutX="1148.0" layoutY="197.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
-      <JFXCheckBox fx:id="chkbxEditMode" checkedColor="#eda678" layoutX="1148.0" layoutY="138.0" styleClass="custom-jfx-checkbox" stylesheets="@design.css" text="Edit Mode" textFill="WHITE" unCheckedColor="WHITE">
+      <JFXCheckBox fx:id="chkbxEditMode" checkedColor="#eda678" layoutX="1148.0" layoutY="138.0" onAction="#actionPerformed" styleClass="custom-jfx-checkbox" stylesheets="@design.css" text="Edit Mode" textFill="WHITE" unCheckedColor="WHITE">
          <font>
             <Font size="20.0" />
          </font>
