@@ -12,12 +12,16 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -72,26 +76,26 @@ public class ProjectFile {
         return null;
     }
 
-    public static void saveToFile(ArrayList<Project> projects,String fileName){
+    public static void saveToFile(ArrayList<Project> projects, String fileName) {
         BufferedWriter bw = null;
         FileWriter fw = null;
         String content = "";
-        content += projects.size();
+        content += (projects.size() + "\r\n");
 
         for (int i = 0; i < projects.size(); i++) {
             content += projects.get(i).getProjectTitle();
             content += "," + projects.get(i).getSchool();
-            content += "," + projects.get(i).getSupervisorName();  
-            List<Student> students =  projects.get(i).getStudents();
+            content += "," + projects.get(i).getSupervisorName();
+            List<Student> students = projects.get(i).getStudents();
             content += "," + students.size();
             for (int u = 0; u < students.size(); u++) {
-                content += "," + students.get(u).getAdmissionNo() ;
+                content += "," + students.get(u).getAdmissionNo();
                 content += "," + students.get(u).getName();
                 content += "," + students.get(u).getCourse();
                 content += "," + students.get(u).getGender();
             }
             content += "\r\n";
-           
+
         }
 
         try {
@@ -112,22 +116,24 @@ public class ProjectFile {
                 if (bw != null) {
                     bw.close();
                 }
-            } catch (Exception ex) {
+            } catch (IOException ex) {
                 System.out.println("Error in closing the BufferedWriter" + ex);
             }
         }
     }
-    
-    public static void writeFile(ArrayList<Project> projects,String fileName) {
-        BufferedWriter bw = null;
-        FileWriter fw = null;
-        String content = "";
 
-        for (int i = 0; i < projects.size(); i++) {
-            content += "Title:\t\t" + projects.get(i).getProjectTitle() + "\r\n";
-            content += "School:\t\t" + projects.get(i).getSchool() + "\r\n";
-            content += "Supervisor:\t" + projects.get(i).getSupervisorName() + "\r\n";
-            List<Student> students = projects.get(i).getStudents();
+    public static void writeFile(Project project, String fileName, String fileType) {
+        File file = new File(fileName);
+
+        if ("TXT".equals(fileType)) {
+            BufferedWriter bw = null;
+            FileWriter fw = null;
+            String content = "";
+
+            content += "Title:\t\t" + project.getProjectTitle() + "\r\n";
+            content += "School:\t\t" + project.getSchool() + "\r\n";
+            content += "Supervisor:\t" + project.getSupervisorName() + "\r\n";
+            List<Student> students = project.getStudents();
             content += "Students:\t";
             for (int u = 0; u < students.size(); u++) {
                 content += students.get(u).getName();
@@ -136,29 +142,33 @@ public class ProjectFile {
                 }
             }
             content += "\r\n---------------\r\n";
-           
-        }
 
-        try {
-
-            File file = new File(fileName);
-
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            fw = new FileWriter(file);
-            bw = new BufferedWriter(fw);
-            bw.write(content);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
             try {
-                if (bw != null) {
-                    bw.close();
+                if (!file.exists()) {
+                    file.createNewFile();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error in closing the BufferedWriter" + ex);
+
+                fw = new FileWriter(file);
+                bw = new BufferedWriter(fw);
+                bw.write(content);
+
+            } catch (IOException e) {
+            } finally {
+                try {
+                    if (bw != null) {
+                        bw.close();
+                    }
+                } catch (IOException ex) {
+                    System.out.println("Error in closing the BufferedWriter" + ex);
+                }
+            }
+        } else {
+
+            try {
+                ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(file));
+                outStream.writeObject(project);
+                outStream.close();
+            } catch (IOException ex) {
             }
         }
     }

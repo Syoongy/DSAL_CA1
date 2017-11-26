@@ -20,7 +20,7 @@ public class TestMain {
     public static void main(String[] args) throws FileNotFoundException {
         ArrayList<Project> projects = ProjectFile.readFile("src/DataFile/projects.txt");
         System.out.println(projects);
-        ProjectFile.writeFile(projects,"src/DataFile/output.txt");
+        //ProjectFile.writeFile(projects,"src/DataFile/output.txt");
     }
     
     public void addStudent(String admissionNo, String name, String course, Gender gender){

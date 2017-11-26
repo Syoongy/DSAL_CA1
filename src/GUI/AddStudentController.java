@@ -33,7 +33,6 @@ public class AddStudentController implements Initializable {
     
     public void closeAddWindow(MouseEvent evt) {
         Stage stage = (Stage) closeAddBtn.getScene().getWindow();
-        // do what you have to do
         stage.close();
     }
 }

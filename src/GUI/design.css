@@ -24,3 +24,11 @@ and open the template in the editor.
 .noRadius {
     -fx-background-radius: 0;
 }
+
+.closeDialog {
+    -fx-text-fill: #eda678;
+}
+
+.custom-jfx-combobox *{
+    -fx-text-fill: #eda678;
+}
