@@ -20,8 +20,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -92,7 +90,12 @@ public class ProjectFile {
                 content += "," + students.get(u).getAdmissionNo();
                 content += "," + students.get(u).getName();
                 content += "," + students.get(u).getCourse();
-                content += "," + students.get(u).getGender();
+                if(students.get(u).getGender() == Gender.MALE) {
+                    content += ",M";
+                } else {
+                    content += ",F";
+                }
+                
             }
             content += "\r\n";
 

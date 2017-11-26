@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Enum.Gender;
 import IO.ProjectFile;
 import Model.Project;
 import Model.Student;
@@ -186,8 +187,14 @@ public class MainGUIController implements Initializable {
     public void updateProjectStudent(MouseEvent evt) {
         ArrayList<Student> students = projects.get(currentProjectIndex).getStudents();
         students.get(currentStudentIndex).setAdmissionNo(tfAdminNo.getText());
-        students.get(currentStudentIndex).setAdmissionNo(tfName.getText());
-        students.get(currentStudentIndex).setAdmissionNo(tfCourse.getText());
+        students.get(currentStudentIndex).setName(tfName.getText());
+        students.get(currentStudentIndex).setCourse(tfCourse.getText());
+        if("Male".equals(genderBox.getSelectionModel().getSelectedItem().toString())) {
+            students.get(currentStudentIndex).setGender(Gender.MALE);
+        } else {
+            students.get(currentStudentIndex).setGender(Gender.FEMALE);
+        }
+        projects.get(currentProjectIndex).setStudents(students);
 
         //Creates dialog to inform user student has been updated
         JFXDialogLayout content = new JFXDialogLayout();
@@ -234,8 +241,11 @@ public class MainGUIController implements Initializable {
         tfAdminNo.setText(students.get(currentStudentIndex).getAdmissionNo());
         tfCourse.setText(students.get(currentStudentIndex).getCourse());
         tfName.setText(students.get(currentStudentIndex).getName());
-        //genderBox.setValue(students.get(currentStudentIndex).getGender());
-        genderBox.getSelectionModel().select(students.get(currentStudentIndex).getGender());
+        if(students.get(currentStudentIndex).getGender() == Gender.MALE) {
+            genderBox.getSelectionModel().select("Male");
+        } else {
+            genderBox.getSelectionModel().select("Female");
+        }
 
     }
 
