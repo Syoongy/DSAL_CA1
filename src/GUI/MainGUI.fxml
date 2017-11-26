@@ -14,14 +14,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="base" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgba(61,73,86,0.9);" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainGUIController"> <!--xmlns="http://javafx.com/javafx/8.0.141"-->
     <children>
           <JFXTreeTableView fx:id="ttvProjects" currentItemsCount="5" layoutX="14.0" layoutY="64.0" prefHeight="637.0" prefWidth="294.0" />
-          <JFXButton layoutX="17.0" layoutY="712.0" onAction="#addProject" onMouseClicked="#addProject" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
-          <JFXButton layoutX="165.0" layoutY="712.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="DELETE" />
+          <JFXButton disable="true" layoutX="17.0" layoutY="712.0" onAction="#addProject" onMouseClicked="#addProject" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
+          <JFXButton disable="true" layoutX="165.0" layoutY="712.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="DELETE" />
         <AnchorPane fx:id="titleBar" prefHeight="63.0" prefWidth="1410.0" style="-fx-background-color: #16222d;">
             <children>
                 <Label fx:id="lblProject" layoutX="14.0" layoutY="26.0" style="-fx-font-size: 32; -fx-text-fill: #eda678;" text="Project" />
@@ -39,25 +40,25 @@
                 <InnerShadow />
             </effect>
         </Rectangle>
-        <JFXTextField fx:id="tfProjectTitle" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="113.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Title" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #FFF;" unFocusColor="#ffffff80" />
-        <JFXTextField fx:id="tfSchool" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="215.0" mouseTransparent="true" prefHeight="49.0" prefWidth="166.0" promptText="School" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #FFF;" unFocusColor="#ffffff80" />
-        <JFXTextField fx:id="tfSupervisor" focusColor="#eda678" labelFloat="true" layoutX="560.0" layoutY="216.0" mouseTransparent="true" prefHeight="49.0" prefWidth="462.0" promptText="Supervisor" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #FFF;" unFocusColor="#ffffff80" />
+        <JFXTextField fx:id="tfProjectTitle" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="113.0" mouseTransparent="true" prefHeight="49.0" prefWidth="644.0" promptText="Title" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
+        <JFXTextField fx:id="tfSchool" focusColor="#eda678" labelFloat="true" layoutX="378.0" layoutY="215.0" mouseTransparent="true" prefHeight="49.0" prefWidth="166.0" promptText="School" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
+        <JFXTextField fx:id="tfSupervisor" focusColor="#eda678" labelFloat="true" layoutX="560.0" layoutY="216.0" mouseTransparent="true" prefHeight="49.0" prefWidth="462.0" promptText="Supervisor" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: #eda678;" unFocusColor="#ffffff80" />
       <Pane layoutX="381.0" layoutY="318.0" prefHeight="439.0" prefWidth="644.0" style="-fx-border-color: #eda678; -fx-border-radius: 10px; -fx-border-width: 3px;">
          <children>
               <Label fx:id="lblProject2" layoutX="14.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="Student(s)" />
             <JFXListView fx:id="lvStudents" layoutX="14.0" layoutY="40.0" prefHeight="325.0" prefWidth="176.0" />
-              <JFXButton layoutX="32.0" layoutY="381.0" onMouseClicked="#addStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
-            <JFXTextField fx:id="tfAdminNo" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="40.0" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
-            <JFXTextField fx:id="tfName" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="119.0" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
-            <JFXTextField fx:id="tfCourse" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="208.0" promptText="Course" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
-            <JFXComboBox fx:id="genderBox" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="294.0" prefHeight="51.0" prefWidth="176.0" promptText="Gender" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: FFF;" unFocusColor="WHITE" visibleRowCount="2" />
-            <JFXButton layoutX="466.0" layoutY="379.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
+              <JFXButton disable="true" layoutX="32.0" layoutY="381.0" onMouseClicked="#addStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
+            <JFXTextField fx:id="tfAdminNo" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="40.0" mouseTransparent="true" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: eda678;" unFocusColor="#ffffff80" />
+            <JFXTextField fx:id="tfName" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="119.0" mouseTransparent="true" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: eda678;" unFocusColor="#ffffff80" />
+            <JFXTextField fx:id="tfCourse" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="208.0" mouseTransparent="true" promptText="Course" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: eda678;" unFocusColor="#ffffff80" />
+            <JFXComboBox fx:id="genderBox" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="294.0" mouseTransparent="true" prefHeight="51.0" prefWidth="176.0" promptText="Gender" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: FFF;" styleClass="custom-jfx-combobox" stylesheets="@design.css" unFocusColor="WHITE" visibleRowCount="2" />
+            <JFXButton fx:id="btnUpdateStudentInfo" disable="true" layoutX="466.0" layoutY="379.0" onMouseClicked="#updateProjectStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
          </children>
       </Pane>
       <Pane layoutX="1057.0" layoutY="318.0" prefHeight="439.0" prefWidth="322.0" style="-fx-border-color: #eda678; -fx-border-radius: 10px; -fx-border-width: 3px;">
          <children>
             <Label fx:id="lblProject21" layoutX="14.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="Save" />
-            <JFXTextField focusColor="#eda678" labelFloat="true" layoutX="14.0" layoutY="65.0" promptText="File Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
+            <JFXTextField fx:id="tfSaveFileName" focusColor="#eda678" labelFloat="true" layoutX="14.0" layoutY="65.0" promptText="File Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: FFF;" unFocusColor="#ffffff80" />
             <Label fx:id="lblProject211" layoutX="14.0" layoutY="127.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="File Type" />
             <JFXRadioButton layoutY="188.0" selected="true" styleClass="custom-jfx-radiobutton" stylesheets="@design.css" text="TXT" textFill="WHITE">
                <font>
@@ -72,14 +73,15 @@
                   <Font size="20.0" />
                </font>
             </JFXRadioButton>
-            <JFXButton layoutX="168.0" layoutY="381.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="SAVE" />
+            <JFXButton layoutX="168.0" layoutY="381.0" onMouseClicked="#saveProjectToFile" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="SAVE" />
          </children>
       </Pane>
-      <JFXButton fx:id="btnUpdateProject" disable="true" layoutX="1148.0" layoutY="197.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
-      <JFXCheckBox fx:id="chkbxEditMode" checkedColor="#eda678" layoutX="1148.0" layoutY="138.0" onAction="#actionPerformed" styleClass="custom-jfx-checkbox" stylesheets="@design.css" text="Edit Mode" textFill="WHITE" unCheckedColor="WHITE">
+      <JFXButton fx:id="btnUpdateProject" disable="true" layoutX="1148.0" layoutY="197.0" onMouseClicked="#updateProject" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
+      <JFXCheckBox fx:id="chkbxEditMode" checkedColor="#eda678" layoutX="1148.0" layoutY="138.0" styleClass="custom-jfx-checkbox" stylesheets="@design.css" text="Edit Mode" textFill="WHITE" unCheckedColor="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </JFXCheckBox>
+      <StackPane fx:id="dialogStackPane" layoutX="380.0" layoutY="239.0" mouseTransparent="true" prefHeight="773.0" prefWidth="1410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>
