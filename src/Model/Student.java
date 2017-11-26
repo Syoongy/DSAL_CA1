@@ -7,11 +7,12 @@ package Model;
 
 import Enum.Gender;
 
+
 /**
  *
  * @author BN
  */
-public class Student {
+public class Student{
     private String admissionNo;
     private String name;
     private String course;
