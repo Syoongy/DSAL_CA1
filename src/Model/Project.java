@@ -70,5 +70,14 @@ public class Project {
         students.remove(position);
     }
     
+    public ArrayList<Student> searchStudent(String searchStr){
+        ArrayList<Student> result = new ArrayList();
+        for(int i=0;i<students.size();i++){
+            if(students.get(i).getName().toLowerCase().contains(searchStr.toLowerCase())){
+                  result.add(students.get(i));
+            }
+        }
+        return result;
+    }
     
 }
