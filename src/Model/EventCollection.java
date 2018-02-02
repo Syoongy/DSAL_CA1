@@ -26,6 +26,14 @@ public class EventCollection implements Serializable{
         currEvent = 0;
     }
 
+    public LinkList getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(LinkList eventList) {
+        this.eventList = eventList;
+    }
+
     public int getNoOfEvents() {
         return eventList.getNoOfElement();
     }

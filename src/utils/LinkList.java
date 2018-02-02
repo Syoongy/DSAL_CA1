@@ -79,6 +79,7 @@ public class LinkList implements Serializable{
 // insert new node at beginning of list
                 ListNode newnode = new ListNode(data, headnode);
                 headnode = newnode;
+                
 
             } else {
 

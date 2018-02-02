@@ -222,11 +222,28 @@ public class IOHelper {
          Event event = new Event();
          event = (Event) in.readObject();
          in.close();
-         fileIn.close();
-                  System.out.println("Name: " + event.getEventTitle());
-                  System.out.println(event.getNext().getProjectTitle());
-    
+         fileIn.close();    
          return event;
+    }
+    
+        public void serializedEventCollection(EventCollection eventCollection) throws FileNotFoundException, IOException{
+        FileOutputStream fileOut =
+         new FileOutputStream("src/DataFile/eventCollection.ser");
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(eventCollection);
+
+         out.close();
+         fileOut.close();
+    }
+    
+    public EventCollection deserializedEventCollection(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException{
+        FileInputStream fileIn = new FileInputStream(fileName);
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+         EventCollection eventCollection = new EventCollection();
+         eventCollection = (EventCollection) in.readObject();
+         in.close();
+         fileIn.close();
+         return eventCollection;
     }
 
 }

@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import utils.LinkList;
+import utils.Queue;
 
 /**
  *
@@ -20,12 +21,10 @@ public class Event implements Serializable{
     private String eventTitle = "";
     private LinkList projectList;
     private int currProject;
-    private int numberOfProject;
     
     public Event() {
         projectList = new LinkList();
         currProject = 0;
-        numberOfProject = 0;
     }
 
     public String getEventTitle() {
@@ -36,8 +35,16 @@ public class Event implements Serializable{
         this.eventTitle = eventTitle;
     }
 
-    public int getNoOfProjects() {
-        return numberOfProject;
+    public int getNumberOfProject() {
+        return projectList.getNoOfElement();
+    }
+
+    public LinkList getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(LinkList projectList) {
+        this.projectList = projectList;
     }
 
     public Project getProject(int index) {
@@ -45,12 +52,11 @@ public class Event implements Serializable{
     }
 
     public void addProject(Project p) {
-        numberOfProject++;
         projectList.addLast(p);
     }
 
     public Project getNext() {
-        if (currProject < getNoOfProjects() - 1) {
+        if (currProject < getNumberOfProject() - 1) {
             currProject++;
         }
 
@@ -66,7 +72,7 @@ public class Event implements Serializable{
     }
 
     public Project getLast() {
-        currProject = getNoOfProjects() - 1;
+        currProject = getNumberOfProject() - 1;
         return (Project) projectList.get(currProject);
     }
 
@@ -74,7 +80,10 @@ public class Event implements Serializable{
         currProject = 0;
         return (Project) projectList.get(currProject);
     }
+    
 
+
+    
    
 
 }
