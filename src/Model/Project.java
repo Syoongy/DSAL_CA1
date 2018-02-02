@@ -5,31 +5,42 @@
  */
 package Model;
 
-import Enum.Gender;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author BN
  */
-public class Project {
+public class Project implements Serializable{
     private String projectTitle;
     private String school;
     private String supervisorName;
-    private ArrayList<Student> students = new ArrayList<Student>();
+    private int numberOfStudent;
+    private List<Student> students = new ArrayList<Student>();
     
     public Project(String projectTitle, String school, String supervisorName){
         this.projectTitle = projectTitle;
         this.school = school;
         this.supervisorName = supervisorName;
+        this.numberOfStudent = 0;
     }
 
+    public int getNumberOfStudent(){
+        return numberOfStudent;
+    }
     public String getProjectTitle() {
         return projectTitle;
     }
 
     public void setProjectTitle(String projectTitle) {
         this.projectTitle = projectTitle;
+    }
+
+    public void setNumberOfStudent(int numberOfStudent) {
+        this.numberOfStudent = numberOfStudent;
     }
 
     public String getSchool() {
@@ -48,21 +59,19 @@ public class Project {
         this.supervisorName = supervisorName;
     }
 
-    public int getNumOfStudents() {
-        return students.size();
-    }
-
-
-    public ArrayList<Student> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(ArrayList<Student> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 
-    
-    public void addStudent(Student student){       
+    public Student getStudent(int i){
+        return students.get(i);
+    }
+    public void addStudent(Student student){  
+        numberOfStudent++;
         students.add(student);        
     }
     
@@ -70,8 +79,8 @@ public class Project {
         students.remove(position);
     }
     
-    public ArrayList<Student> searchStudent(String searchStr){
-        ArrayList<Student> result = new ArrayList();
+    public List<Student> searchStudent(String searchStr){
+        List<Student> result = new ArrayList();
         for(int i=0;i<students.size();i++){
             if(students.get(i).getName().toLowerCase().contains(searchStr.toLowerCase())){
                   result.add(students.get(i));

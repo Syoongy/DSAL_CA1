@@ -5,10 +5,12 @@
  */
 package Enum;
 
+import java.io.Serializable;
+
 /**
  *
  * @author BN
  */
-public enum Gender {
+public enum Gender implements Serializable{
     MALE, FEMALE
 }

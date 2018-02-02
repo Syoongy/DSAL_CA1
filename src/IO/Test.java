@@ -6,24 +6,47 @@
 package IO;
 
 import Enum.Gender;
+import Model.Event;
+import Model.EventCollection;
 import Model.Project;
 import Model.Student;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author BN
  */
-public class TestMain {
-    private ArrayList<Project>  projects = new ArrayList<>();
-    public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<Project> projects = ProjectFile.readFile("src/DataFile/projects.txt");
-        System.out.println(projects);
-        //ProjectFile.writeFile(projects,"src/DataFile/output.txt");
+public class Test {
+      public static void main(String[] args) {
+            IOHelper pf = new IOHelper();
+            EventCollection eventCollection = new EventCollection();
+            eventCollection = pf.readEventCollection("src/DataFile/EventCollection");          
+            try{             
+                  pf.serializedEvent(eventCollection.getEvent(0));
+                 System.out.println(eventCollection.getEvent(0).getEventTitle());              
+                 Event e = pf.deserializedEvent("src/DataFile/"+eventCollection.getEvent(0).getEventTitle()+".ser");
+            } catch (IOException ex) {
+              Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+            
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+          }
+         
+
     }
-    
-    public void addStudent(String admissionNo, String name, String course, Gender gender){
+      
+      
+      
+      public List<Student> search(Project p,String searchString){
+          List<Student> students = p.searchStudent("a");
+          return students;
+      }
+ public void addStudent(String admissionNo, String name, String course, Gender gender){
         Student s = new Student(admissionNo, name, course, gender);
         Project currentProject = new Project("21","","");
         currentProject.addStudent(s);
@@ -40,7 +63,7 @@ public class TestMain {
     public void addProject(String projectTitle, String school, String supervisorName){
         Project p = new Project(projectTitle,school,supervisorName);
         p.addStudent(new Student("123","beining","DIT",Gender.FEMALE));
-        projects.add(p);
+      
     }
     
     public void updateProject(String projectTitle, String school, String supervisorName){
@@ -58,5 +81,4 @@ public class TestMain {
         currentProject.getStudents().get(position).setGender(gender);
         
     }
- 
 }

@@ -6,13 +6,14 @@
 package Model;
 
 import Enum.Gender;
+import java.io.Serializable;
 
 
 /**
  *
  * @author BN
  */
-public class Student{
+public class Student implements Serializable{
     private String admissionNo;
     private String name;
     private String course;

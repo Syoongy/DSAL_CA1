@@ -6,16 +6,20 @@
 package IO;
 
 import Enum.Gender;
+import Model.Event;
+import Model.EventCollection;
 import Model.Project;
 import Model.Student;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +29,16 @@ import java.util.StringTokenizer;
  *
  * @author BN
  */
-public class ProjectFile {
+public class IOHelper {
 
-    public static ArrayList<Project> readFile(String fileName) throws FileNotFoundException {
+    public IOHelper() {
+    }
+
+    public List<Project> readProjectListFile(String fileName) throws FileNotFoundException {
         BufferedReader br;
         String line;
         int numOfProject;
-        ArrayList<Project> projects;
+        List<Project> projects;
 
         try {
             br = new BufferedReader(new FileReader(fileName));
@@ -74,7 +81,7 @@ public class ProjectFile {
         return null;
     }
 
-    public static void saveToFile(ArrayList<Project> projects, String fileName) {
+    public void saveToProjectListFile(List<Project> projects, String fileName) {
         BufferedWriter bw = null;
         FileWriter fw = null;
         String content = "";
@@ -90,12 +97,12 @@ public class ProjectFile {
                 content += "," + students.get(u).getAdmissionNo();
                 content += "," + students.get(u).getName();
                 content += "," + students.get(u).getCourse();
-                if(students.get(u).getGender() == Gender.MALE) {
+                if (students.get(u).getGender() == Gender.MALE) {
                     content += ",M";
                 } else {
                     content += ",F";
                 }
-                
+
             }
             content += "\r\n";
 
@@ -125,7 +132,7 @@ public class ProjectFile {
         }
     }
 
-    public static void writeFile(Project project, String fileName, String fileType) {
+    public void writeOneProjectToFile(Project project, String fileName, String fileType) {
         File file = new File(fileName);
 
         if ("TXT".equals(fileType)) {
@@ -175,4 +182,51 @@ public class ProjectFile {
             }
         }
     }
+
+    public EventCollection readEventCollection(String folderDir) {
+        EventCollection eventCollection = new EventCollection();
+        File dir = new File(folderDir);
+        for (File file : dir.listFiles()) {
+            if (file.isFile()) {
+                try {
+                    String eventTitle = file.getName();
+                    List<Project> projects = readProjectListFile(file.getPath());
+                    Event event = new Event();
+                    event.setEventTitle(eventTitle);
+                    for(int i=0;i<projects.size();i++){
+                        event.addProject(projects.get(i));
+                    }
+                    eventCollection.addEvent(event);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+               
+            }
+        }
+        return eventCollection;
+    }
+    
+    public void serializedEvent(Event event) throws FileNotFoundException, IOException{
+        FileOutputStream fileOut =
+         new FileOutputStream("src/DataFile/"+event.getEventTitle()+".ser");
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(event);
+
+         out.close();
+         fileOut.close();
+    }
+    
+    public Event deserializedEvent(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException{
+        FileInputStream fileIn = new FileInputStream(fileName);
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+         Event event = new Event();
+         event = (Event) in.readObject();
+         in.close();
+         fileIn.close();
+                  System.out.println("Name: " + event.getEventTitle());
+                  System.out.println(event.getNext().getProjectTitle());
+    
+         return event;
+    }
+
 }

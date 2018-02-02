@@ -6,7 +6,7 @@
 package GUI;
 
 import Enum.Gender;
-import IO.ProjectFile;
+import IO.IOHelper;
 import Model.Project;
 import Model.Student;
 import com.jfoenix.controls.JFXButton;
@@ -22,6 +22,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +56,8 @@ import javafx.stage.StageStyle;
  */
 public class MainGUIController implements Initializable {
 
-    protected ArrayList<Project> projects = new ArrayList<>();
+    IOHelper projectFile = new IOHelper();
+    protected List<Project> projects = new ArrayList<>();
     protected int currentProjectIndex = 0;
     protected int currentStudentIndex = 0;
 
@@ -133,7 +135,7 @@ public class MainGUIController implements Initializable {
     public void saveProjectToFile(MouseEvent evt) {
         RadioButton fileType = (RadioButton) fileTypeToggleGroup.getSelectedToggle();
         String fileName = "src/DataFile/" + tfSaveFileName.getText() + "." + fileType.getText();
-        ProjectFile.writeFile(projects.get(currentProjectIndex), fileName, fileType.getText());
+        projectFile.writeOneProjectToFile(projects.get(currentProjectIndex), fileName, fileType.getText());
         tfSaveFileName.clear();
         
         //Creates dialog to inform user file has been saved
@@ -161,7 +163,7 @@ public class MainGUIController implements Initializable {
         projects.get(currentProjectIndex).setProjectTitle(tfProjectTitle.getText());
         projects.get(currentProjectIndex).setSchool(tfSchool.getText());
         projects.get(currentProjectIndex).setSupervisorName(tfSupervisor.getText());
-        ProjectFile.saveToFile(projects, "src/DataFile/projects.txt");
+        projectFile.saveToProjectListFile(projects, "src/DataFile/projects.txt");
 
         //Creates dialog to inform user file has been updated
         JFXDialogLayout content = new JFXDialogLayout();
@@ -185,7 +187,7 @@ public class MainGUIController implements Initializable {
 
     //Updates student list for selected project
     public void updateProjectStudent(MouseEvent evt) {
-        ArrayList<Student> students = projects.get(currentProjectIndex).getStudents();
+        List<Student> students = projects.get(currentProjectIndex).getStudents();
         students.get(currentStudentIndex).setAdmissionNo(tfAdminNo.getText());
         students.get(currentStudentIndex).setName(tfName.getText());
         students.get(currentStudentIndex).setCourse(tfCourse.getText());
@@ -219,7 +221,7 @@ public class MainGUIController implements Initializable {
 
     public void loadAndDisplayProjectList() {
         try {
-            projects = ProjectFile.readFile("src/DataFile/projects.txt");
+            projects = projectFile.readProjectListFile("src/DataFile/projects.txt");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -237,7 +239,7 @@ public class MainGUIController implements Initializable {
     }
 
     public void displaySelectedStudent() {
-        ArrayList<Student> students = projects.get(currentProjectIndex).getStudents();
+        List<Student> students = projects.get(currentProjectIndex).getStudents();
         tfAdminNo.setText(students.get(currentStudentIndex).getAdmissionNo());
         tfCourse.setText(students.get(currentStudentIndex).getCourse());
         tfName.setText(students.get(currentStudentIndex).getName());
@@ -336,14 +338,14 @@ public class MainGUIController implements Initializable {
     }
 
     public void setUpListViewStudent() {
-        ArrayList<Student> students = projects.get(currentProjectIndex).getStudents();
+        List<Student> students = projects.get(currentProjectIndex).getStudents();
         lvStudents.getItems().clear();
         for (int i = 0; i < students.size(); i++) {
             lvStudents.getItems().add(students.get(i).getName());
         }
 
         lvStudents.setOnMouseClicked((MouseEvent event) -> {
-            ArrayList<Student> students1 = projects.get(currentProjectIndex).getStudents();
+            List<Student> students1 = projects.get(currentProjectIndex).getStudents();
             String name = lvStudents.getSelectionModel().getSelectedItem();
             for (int i = 0; i < students1.size(); i++) {
                 if (students1.get(i).getName().equals(name)) {
