@@ -70,30 +70,30 @@ public class Test {
 //            }
     }
 
-    public static LinkList searchProjectByTitle(LinkList projectList,String searchStr){
+    public static LinkList searchProjectByTitle(LinkList projectList, String searchStr) {
         LinkList result = new LinkList();
         int numOfProject = projectList.getNoOfElement();
-        for(int i=0;i<numOfProject;i++){
+        for (int i = 0; i < numOfProject; i++) {
             Project p = (Project) projectList.get(i);
-            if(p.getProjectTitle().contains(searchStr)){
+            if (p.getProjectTitle().contains(searchStr)) {
                 result.addLast(p);
             }
         }
         return result;
-    } 
-    
-        public static LinkList searchEventByTitle(LinkList eventList,String searchStr){
+    }
+
+    public static LinkList searchEventByTitle(LinkList eventList, String searchStr) {
         LinkList result = new LinkList();
         int numOfEvent = eventList.getNoOfElement();
-        for(int i=0;i<numOfEvent;i++){
-           Event e = (Event) eventList.get(i);
-            if(e.getEventTitle().contains(searchStr)){
+        for (int i = 0; i < numOfEvent; i++) {
+            Event e = (Event) eventList.get(i);
+            if (e.getEventTitle().contains(searchStr)) {
                 result.addLast(e);
             }
         }
         return result;
-    } 
-        
+    }
+
     public static LinkList sortProjectListByNumberOfStudentAsc(LinkList projectList) {
         //Radix sort
         //we assume that one project will not have more than 9 students
@@ -104,8 +104,6 @@ public class Test {
         for (int i = 0; i < 10; i++) {
             queues[i] = new Queue();
         }
-
-  
 
         int numberOfProject = projectList.getNoOfElement();
         for (int i = 0; i < numberOfProject; i++) {
@@ -135,7 +133,7 @@ public class Test {
         int divisor = (int) Math.pow(10, 1);
 
         int numberOfProject = projectList.getNoOfElement();
-             for (int i = 0; i < numberOfProject; i++) {
+        for (int i = 0; i < numberOfProject; i++) {
             Project p = (Project) projectList.get(i);
             queues[p.getNumberOfStudent()].enqueue(p);
         }
@@ -147,8 +145,8 @@ public class Test {
         }
         return projectList;
     }
-    
-        public static LinkList sortEventListByNumberOfProjectAsc(LinkList eventList,int numOfDigitsOfMaxNumberOfProjects) {
+
+    public static LinkList sortEventListByNumberOfProjectAsc(LinkList eventList, int numOfDigitsOfMaxNumberOfProjects) {
         //Radix sort
 
         // Step 1: Create 10 Queues
@@ -158,29 +156,29 @@ public class Test {
             queues[i] = new Queue();
         }
 
-          // Step 2: Process each digit in the number
+        // Step 2: Process each digit in the number
         for (int u = 0; u < numOfDigitsOfMaxNumberOfProjects; u++) {
             int divisor = (int) Math.pow(10, u);
 
-        int numberOfProject = eventList.getNoOfElement();
-        for (int i = 0; i < numberOfProject; i++) {
-            Event e = (Event) eventList.get(i);
-            int qNo = (e.getNumberOfProject() / divisor) % 10;
-            queues[qNo ].enqueue(e);
-        }
-        eventList.removeAll();
-        for (int k = 0; k < 10; k++) {
-            while (!queues[k].isEmpty()) {
-                eventList.addLast((Event) queues[k].dequeue());
+            int numberOfProject = eventList.getNoOfElement();
+            for (int i = 0; i < numberOfProject; i++) {
+                Event e = (Event) eventList.get(i);
+                int qNo = (e.getNumberOfProject() / divisor) % 10;
+                queues[qNo].enqueue(e);
             }
-        }
+            eventList.removeAll();
+            for (int k = 0; k < 10; k++) {
+                while (!queues[k].isEmpty()) {
+                    eventList.addLast((Event) queues[k].dequeue());
+                }
+            }
         }
         return eventList;
     }
 
-         public static LinkList sortEventListByNumberOfProjectDesc(LinkList eventList,int numOfDigitsOfMaxNumberOfProjects) {
+    public static LinkList sortEventListByNumberOfProjectDesc(LinkList eventList, int numOfDigitsOfMaxNumberOfProjects) {
         //Radix sort
-               //Radix sort
+        //Radix sort
 
         // Step 1: Create 10 Queues
         Queue[] queues = new Queue[10];
@@ -189,22 +187,22 @@ public class Test {
             queues[i] = new Queue();
         }
 
-          // Step 2: Process each digit in the number
+        // Step 2: Process each digit in the number
         for (int u = 0; u < numOfDigitsOfMaxNumberOfProjects; u++) {
             int divisor = (int) Math.pow(10, u);
 
-        int numberOfProject = eventList.getNoOfElement();
-        for (int i = 0; i < numberOfProject; i++) {
-            Event e = (Event) eventList.get(i);
-            int qNo = (e.getNumberOfProject() / divisor) % 10;
-            queues[qNo ].enqueue(e);
-        }
-        eventList.removeAll();
-        for (int k = 0; k < 10; k++) {
-            while (!queues[k].isEmpty()) {
-               eventList.add(0, (Event) queues[k].dequeue());
+            int numberOfProject = eventList.getNoOfElement();
+            for (int i = 0; i < numberOfProject; i++) {
+                Event e = (Event) eventList.get(i);
+                int qNo = (e.getNumberOfProject() / divisor) % 10;
+                queues[qNo].enqueue(e);
             }
-        }
+            eventList.removeAll();
+            for (int k = 0; k < 10; k++) {
+                while (!queues[k].isEmpty()) {
+                    eventList.add(0, (Event) queues[k].dequeue());
+                }
+            }
         }
         return eventList;
     }

@@ -34,6 +34,15 @@ public class Event implements Serializable{
     public void setEventTitle(String eventTitle) {
         this.eventTitle = eventTitle;
     }
+    
+    public boolean hasProject(Project p) {
+        for(int i = 0; i < projectList.getNoOfElement(); i++) {
+            if(projectList.get(i) == p) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public int getNumberOfProject() {
         return projectList.getNoOfElement();

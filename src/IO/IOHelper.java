@@ -193,57 +193,57 @@ public class IOHelper {
                     List<Project> projects = readProjectListFile(file.getPath());
                     Event event = new Event();
                     event.setEventTitle(eventTitle);
-                    for(int i=0;i<projects.size();i++){
+                    for (int i = 0; i < projects.size(); i++) {
                         event.addProject(projects.get(i));
                     }
                     eventCollection.addEvent(event);
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 }
-               
+
             }
         }
         return eventCollection;
     }
-    
-    public void serializedEvent(Event event) throws FileNotFoundException, IOException{
-        FileOutputStream fileOut =
-         new FileOutputStream("src/DataFile/"+event.getEventTitle()+".ser");
-         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-         out.writeObject(event);
 
-         out.close();
-         fileOut.close();
-    }
-    
-    public Event deserializedEvent(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException{
-        FileInputStream fileIn = new FileInputStream(fileName);
-         ObjectInputStream in = new ObjectInputStream(fileIn);
-         Event event = new Event();
-         event = (Event) in.readObject();
-         in.close();
-         fileIn.close();    
-         return event;
-    }
-    
-        public void serializedEventCollection(EventCollection eventCollection) throws FileNotFoundException, IOException{
-        FileOutputStream fileOut =
-         new FileOutputStream("src/DataFile/eventCollection.ser");
-         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-         out.writeObject(eventCollection);
+    public void serializedEvent(Event event) throws FileNotFoundException, IOException {
+        FileOutputStream fileOut
+                = new FileOutputStream("src/DataFile/" + event.getEventTitle() + ".ser");
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(event);
 
-         out.close();
-         fileOut.close();
+        out.close();
+        fileOut.close();
     }
-    
-    public EventCollection deserializedEventCollection(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException{
+
+    public Event deserializedEvent(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
         FileInputStream fileIn = new FileInputStream(fileName);
-         ObjectInputStream in = new ObjectInputStream(fileIn);
-         EventCollection eventCollection = new EventCollection();
-         eventCollection = (EventCollection) in.readObject();
-         in.close();
-         fileIn.close();
-         return eventCollection;
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        Event event = new Event();
+        event = (Event) in.readObject();
+        in.close();
+        fileIn.close();
+        return event;
+    }
+
+    public void serializedEventCollection(EventCollection eventCollection) throws FileNotFoundException, IOException {
+        FileOutputStream fileOut
+                = new FileOutputStream("src/DataFile/eventCollection.ser");
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(eventCollection);
+
+        out.close();
+        fileOut.close();
+    }
+
+    public EventCollection deserializedEventCollection(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(fileName);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        EventCollection eventCollection = new EventCollection();
+        eventCollection = (EventCollection) in.readObject();
+        in.close();
+        fileIn.close();
+        return eventCollection;
     }
 
 }

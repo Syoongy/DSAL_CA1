@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
@@ -18,11 +19,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="base" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgba(61,73,86,0.9);" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainGUIController"> <!--xmlns="http://javafx.com/javafx/8.0.141"-->
+<AnchorPane id="AnchorPane" fx:id="base" prefHeight="1080.0" prefWidth="1366.0" style="-fx-background-color: rgba(61,73,86,0.9);" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainGUIController"> <!--xmlns="http://javafx.com/javafx/8.0.141"-->
     <children>
-          <JFXTreeTableView fx:id="ttvProjects" currentItemsCount="5" layoutX="14.0" layoutY="64.0" prefHeight="637.0" prefWidth="294.0" />
-          <JFXButton disable="true" layoutX="17.0" layoutY="712.0" onAction="#addProject" onMouseClicked="#addProject" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
-          <JFXButton disable="true" layoutX="165.0" layoutY="712.0" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="DELETE" />
+          <JFXTreeTableView fx:id="ttvProjects" currentItemsCount="5" layoutX="14.0" layoutY="64.0" prefHeight="695.0" prefWidth="294.0" />
         <AnchorPane fx:id="titleBar" prefHeight="63.0" prefWidth="1410.0" style="-fx-background-color: #16222d;">
             <children>
                 <Label fx:id="lblProject" layoutX="14.0" layoutY="26.0" style="-fx-font-size: 32; -fx-text-fill: #eda678;" text="Project" />
@@ -46,12 +45,13 @@
          <children>
               <Label fx:id="lblProject2" layoutX="14.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="Student(s)" />
             <JFXListView fx:id="lvStudents" layoutX="14.0" layoutY="40.0" prefHeight="325.0" prefWidth="176.0" />
-              <JFXButton disable="true" layoutX="32.0" layoutY="381.0" onMouseClicked="#addStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="ADD" />
+              <JFXButton fx:id="btnAddStudent" layoutX="32.0" layoutY="381.0" onMouseClicked="#addProjectStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Add" />
             <JFXTextField fx:id="tfAdminNo" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="40.0" mouseTransparent="true" promptText="Admin No." style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: eda678;" unFocusColor="#ffffff80" />
             <JFXTextField fx:id="tfName" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="119.0" mouseTransparent="true" promptText="Name" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: eda678;" unFocusColor="#ffffff80" />
             <JFXTextField fx:id="tfCourse" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="208.0" mouseTransparent="true" promptText="Course" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: eda678;" unFocusColor="#ffffff80" />
             <JFXComboBox fx:id="genderBox" focusColor="#eda678" labelFloat="true" layoutX="272.0" layoutY="294.0" mouseTransparent="true" prefHeight="51.0" prefWidth="176.0" promptText="Gender" style="-fx-font-size: 20; -fx-prompt-text-fill: FFF; -fx-text-fill: FFF;" styleClass="custom-jfx-combobox" stylesheets="@design.css" unFocusColor="WHITE" visibleRowCount="2" />
-            <JFXButton fx:id="btnUpdateStudentInfo" disable="true" layoutX="466.0" layoutY="379.0" onMouseClicked="#updateProjectStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
+            <JFXButton fx:id="btnUpdateStudentInfo" disable="true" layoutX="474.0" layoutY="381.0" onMouseClicked="#updateProjectStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
+            <JFXButton fx:id="btnRemoveStudent" disable="true" layoutX="252.0" layoutY="381.0" onMouseClicked="#removeProjectStudent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Remove" />
          </children>
       </Pane>
       <Pane layoutX="1057.0" layoutY="318.0" prefHeight="439.0" prefWidth="322.0" style="-fx-border-color: #eda678; -fx-border-radius: 10px; -fx-border-width: 3px;">
@@ -72,7 +72,7 @@
                   <Font size="20.0" />
                </font>
             </JFXRadioButton>
-            <JFXButton layoutX="168.0" layoutY="381.0" onMouseClicked="#saveProjectToFile" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="SAVE" />
+            <JFXButton layoutX="168.0" layoutY="381.0" onMouseClicked="#saveProjectToFile" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Save" />
          </children>
       </Pane>
       <JFXButton fx:id="btnUpdateProject" disable="true" layoutX="1148.0" layoutY="197.0" onMouseClicked="#updateProject" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Update" />
@@ -81,6 +81,28 @@
             <Font size="20.0" />
          </font>
       </JFXCheckBox>
-      <StackPane fx:id="dialogStackPane" layoutX="380.0" layoutY="239.0" mouseTransparent="true" prefHeight="773.0" prefWidth="1410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane layoutX="17.0" layoutY="773.0" prefHeight="297.0" prefWidth="1365.0" style="-fx-border-color: #eda678; -fx-border-radius: 10px; -fx-border-width: 3px;">
+         <children>
+            <Label fx:id="lblProject22" layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="120.0" style="-fx-font-size: 28; -fx-text-fill: #eda678;" text="Events" />
+            <JFXTextField fx:id="tfEventTitle" focusColor="#eda678" labelFloat="true" layoutX="741.0" layoutY="53.0" promptText="Event Title" style="-fx-prompt-text-fill: FFF; -fx-font-size: 20; -fx-text-fill: eda678;" unFocusColor="#ffffff80" />
+                <JFXButton fx:id="btnAddProjectToEvent" disable="true" layoutX="1127.0" layoutY="115.0" onMouseClicked="#addProjectToEvent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Add" />
+                <JFXButton fx:id="btnRemoveProjectFromEvent" disable="true" layoutX="1127.0" layoutY="177.0" onMouseClicked="#removeProjectFromEvent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Remove" />
+            <JFXListView fx:id="lvEvents" layoutX="741.0" layoutY="115.0" prefHeight="172.0" prefWidth="269.0" />
+            <JFXButton fx:id="btnCreateEvent" layoutX="1127.0" layoutY="53.0" onMouseClicked="#createEvent" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Create" />
+            <JFXTextArea fx:id="taEventDisplay" editable="false" layoutX="14.0" layoutY="70.0" prefHeight="207.0" prefWidth="694.0" style="-fx-text-fill: #eda678; -fx-font-size: 16;" />
+            <JFXButton fx:id="btnSaveEvents" layoutX="1127.0" layoutY="239.0" onMouseClicked="#saveEventCollection" prefHeight="44.0" prefWidth="140.0" ripplerFill="#eda678" style="-fx-background-color: #16222d; -fx-text-fill: #eda678;" text="Save" />
+            <ImageView fitHeight="51.0" fitWidth="57.0" layoutX="586.0" layoutY="28.0" onMouseClicked="#sortEventListByNumberOfProjectAsc" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphics/ic_arrow_drop_up_black_48dp_2x.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="57.0" layoutX="637.0" layoutY="28.0" onMouseClicked="#sortEventListByNumberOfProjectDesc" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphics/ic_arrow_drop_down_black_48dp_2x.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <StackPane fx:id="dialogStackPane" mouseTransparent="true" prefHeight="180.0" prefWidth="1410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>

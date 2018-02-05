@@ -7,6 +7,8 @@ package GUI;
 
 import Enum.Gender;
 import IO.IOHelper;
+import Model.Event;
+import Model.EventCollection;
 import Model.Project;
 import Model.Student;
 import com.jfoenix.controls.JFXButton;
@@ -14,12 +16,14 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,6 +54,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import utils.LinkList;
+import utils.Queue;
 
 /**
  *
@@ -57,9 +64,11 @@ import javafx.stage.StageStyle;
 public class MainGUIController implements Initializable {
 
     IOHelper projectFile = new IOHelper();
+    EventCollection eventCollection = new EventCollection();
     protected List<Project> projects = new ArrayList<>();
     protected int currentProjectIndex = 0;
     protected int currentStudentIndex = 0;
+    protected int currentEventIndex = 0;
 
     ObservableList<String> genderList = FXCollections.observableArrayList("Male", "Female");
     private double xOffset = 0, yOffset = 0;
@@ -85,7 +94,23 @@ public class MainGUIController implements Initializable {
     @FXML
     private JFXButton btnUpdateProject;
     @FXML
+    private JFXButton btnAddStudent;
+    @FXML
+    private JFXButton btnRemoveStudent;
+    @FXML
     private JFXButton btnUpdateStudentInfo;
+    @FXML
+    private JFXButton btnRemoveProjectFromEvent;
+    @FXML
+    private JFXButton btnAddProjectToEvent;
+    @FXML
+    private JFXButton btnCreateEvent;
+    @FXML
+    private JFXTextField tfEventTitle;
+    @FXML
+    private JFXTextArea taEventDisplay;
+    @FXML
+    private JFXListView<String> lvEvents;
     @FXML
     private JFXTreeTableView<ttvProject> ttvProjects;
     @FXML
@@ -101,8 +126,14 @@ public class MainGUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         genderBox.setItems(genderList);
+        try {
+            //EventCollection e = projectFile.readEventCollection("src/DataFile/EventCollection");
+            //projectFile.serializedEventCollection(e);
+            eventCollection = projectFile.deserializedEventCollection("src/DataFile/eventCollection.ser");
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println(ex);
+        }
 
         //listener for edit mode checkbox
         chkbxEditMode.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
@@ -116,6 +147,7 @@ public class MainGUIController implements Initializable {
                 tfCourse.setMouseTransparent(false);
                 btnUpdateProject.setDisable(false);
                 genderBox.setMouseTransparent(false);
+                btnAddStudent.setDisable(false);
             } else {
                 // checkbox has been unticked
                 tfProjectTitle.setMouseTransparent(true);
@@ -126,10 +158,13 @@ public class MainGUIController implements Initializable {
                 tfName.setMouseTransparent(true);
                 btnUpdateProject.setDisable(true);
                 genderBox.setMouseTransparent(true);
+                btnAddStudent.setDisable(true);
             }
         });
 
         loadAndDisplayProjectList();
+        displayEventList();
+        setUpListViewEvents();
     }
 
     public void saveProjectToFile(MouseEvent evt) {
@@ -137,7 +172,7 @@ public class MainGUIController implements Initializable {
         String fileName = "src/DataFile/" + tfSaveFileName.getText() + "." + fileType.getText();
         projectFile.writeOneProjectToFile(projects.get(currentProjectIndex), fileName, fileType.getText());
         tfSaveFileName.clear();
-        
+
         //Creates dialog to inform user file has been saved
         JFXDialogLayout content = new JFXDialogLayout();
         Label dialogHeader = new Label();
@@ -185,13 +220,40 @@ public class MainGUIController implements Initializable {
         dialogStackPane.setMouseTransparent(false);
     }
 
+    //Serialises event collection
+    public void saveEventCollection() {
+        try {
+            projectFile.serializedEventCollection(eventCollection);
+        } catch (IOException ex) {
+            Logger.getLogger(MainGUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Creates dialog to inform user file has been serialised
+        JFXDialogLayout content = new JFXDialogLayout();
+        Label dialogHeader = new Label();
+        dialogHeader.setText("Updated");
+        dialogHeader.setStyle("-fx-text-fill: #eda678; -fx-font-size: 28;");
+        content.setHeading(dialogHeader);
+        content.setBody(new Text("The events have been successfully serialised and saved!"));
+        JFXDialog dialog = new JFXDialog(dialogStackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXButton btnCloseDialog = new JFXButton("Okay");
+        btnCloseDialog.getStylesheets().add(getClass().getResource("design.css").toExternalForm());
+        btnCloseDialog.getStyleClass().add("closeDialog");
+        btnCloseDialog.setOnMouseClicked((MouseEvent event) -> {
+            dialog.close();
+            dialogStackPane.setMouseTransparent(true);
+        });
+        content.setActions(btnCloseDialog);
+        dialog.show();
+        dialogStackPane.setMouseTransparent(false);
+    }
+
     //Updates student list for selected project
     public void updateProjectStudent(MouseEvent evt) {
         List<Student> students = projects.get(currentProjectIndex).getStudents();
         students.get(currentStudentIndex).setAdmissionNo(tfAdminNo.getText());
         students.get(currentStudentIndex).setName(tfName.getText());
         students.get(currentStudentIndex).setCourse(tfCourse.getText());
-        if("Male".equals(genderBox.getSelectionModel().getSelectedItem().toString())) {
+        if ("Male".equals(genderBox.getSelectionModel().getSelectedItem().toString())) {
             students.get(currentStudentIndex).setGender(Gender.MALE);
         } else {
             students.get(currentStudentIndex).setGender(Gender.FEMALE);
@@ -213,10 +275,188 @@ public class MainGUIController implements Initializable {
         btnCloseDialog.setOnMouseClicked((MouseEvent event) -> {
             dialog.close();
             dialogStackPane.setMouseTransparent(true);
+            setUpListViewStudent();
         });
         content.setActions(btnCloseDialog);
         dialog.show();
         dialogStackPane.setMouseTransparent(false);
+    }
+
+    public void addProjectStudent(MouseEvent evt) {
+        String adminNo = tfAdminNo.getText();
+        String name = tfName.getText();
+        String course = tfCourse.getText();
+        Gender sGender;
+        if ("Male".equals(genderBox.getSelectionModel().getSelectedItem().toString())) {
+            sGender = Gender.MALE;
+        } else {
+            sGender = Gender.FEMALE;
+        }
+        Student newStudent = new Student(adminNo, name, course, sGender);
+
+        List<Student> students = projects.get(currentProjectIndex).getStudents();
+        students.add(newStudent);
+
+        projects.get(currentProjectIndex).setStudents(students);
+
+        //Creates dialog to inform user student has been added
+        JFXDialogLayout content = new JFXDialogLayout();
+        Label dialogHeader = new Label();
+        dialogHeader.setText("Updated");
+        dialogHeader.setStyle("-fx-text-fill: #eda678; -fx-font-size: 28;");
+        content.setHeading(dialogHeader);
+        content.setBody(new Text("This student has been successfully added! \n"
+                + "Please update the whole file to apply changes!"));
+        JFXDialog dialog = new JFXDialog(dialogStackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXButton btnCloseDialog = new JFXButton("Okay");
+        btnCloseDialog.getStylesheets().add(getClass().getResource("design.css").toExternalForm());
+        btnCloseDialog.getStyleClass().add("closeDialog");
+        btnCloseDialog.setOnMouseClicked((MouseEvent event) -> {
+            dialog.close();
+            dialogStackPane.setMouseTransparent(true);
+            setUpListViewStudent();
+        });
+        content.setActions(btnCloseDialog);
+        dialog.show();
+        dialogStackPane.setMouseTransparent(false);
+    }
+
+    public void removeProjectStudent(MouseEvent evt) {
+        List<Student> students = projects.get(currentProjectIndex).getStudents();
+        students.remove(currentStudentIndex);
+        projects.get(currentProjectIndex).setStudents(students);
+
+        //Creates dialog to inform user student has been removed
+        JFXDialogLayout content = new JFXDialogLayout();
+        Label dialogHeader = new Label();
+        dialogHeader.setText("Updated");
+        dialogHeader.setStyle("-fx-text-fill: #eda678; -fx-font-size: 28;");
+        content.setHeading(dialogHeader);
+        content.setBody(new Text("This student has been successfully removed! \n"
+                + "Please update the whole file to apply changes!"));
+        JFXDialog dialog = new JFXDialog(dialogStackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXButton btnCloseDialog = new JFXButton("Okay");
+        btnCloseDialog.getStylesheets().add(getClass().getResource("design.css").toExternalForm());
+        btnCloseDialog.getStyleClass().add("closeDialog");
+        btnCloseDialog.setOnMouseClicked((MouseEvent event) -> {
+            dialog.close();
+            dialogStackPane.setMouseTransparent(true);
+            setUpListViewStudent();
+        });
+        content.setActions(btnCloseDialog);
+        dialog.show();
+        dialogStackPane.setMouseTransparent(false);
+    }
+
+    public void createEvent() {
+        Event newEvent = new Event();
+        newEvent.setEventTitle(tfEventTitle.getText());
+        eventCollection.addEvent(newEvent);
+
+        //Creates dialog to inform user event has been created
+        JFXDialogLayout content = new JFXDialogLayout();
+        Label dialogHeader = new Label();
+        dialogHeader.setText("Updated");
+        dialogHeader.setStyle("-fx-text-fill: #eda678; -fx-font-size: 28;");
+        content.setHeading(dialogHeader);
+        content.setBody(new Text("This event has been successfully created! \n"
+                + "Please update the whole file to apply changes!"));
+        JFXDialog dialog = new JFXDialog(dialogStackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXButton btnCloseDialog = new JFXButton("Okay");
+        btnCloseDialog.getStylesheets().add(getClass().getResource("design.css").toExternalForm());
+        btnCloseDialog.getStyleClass().add("closeDialog");
+        btnCloseDialog.setOnMouseClicked((MouseEvent event) -> {
+            dialog.close();
+            dialogStackPane.setMouseTransparent(true);
+            setUpListViewEvents();
+            displayEventList();
+        });
+        content.setActions(btnCloseDialog);
+        dialog.show();
+        dialogStackPane.setMouseTransparent(false);
+    }
+
+    public void addProjectToEvent() {
+        Event thisEvent = eventCollection.getEvent(currentEventIndex);
+        Project thisProject = projects.get(currentProjectIndex);
+        thisEvent.addProject(thisProject);
+
+        //Creates dialog to inform user project has been added to event
+        JFXDialogLayout content = new JFXDialogLayout();
+        Label dialogHeader = new Label();
+        dialogHeader.setText("Updated");
+        dialogHeader.setStyle("-fx-text-fill: #eda678; -fx-font-size: 28;");
+        content.setHeading(dialogHeader);
+        content.setBody(new Text("This event has been successfully created! \n"
+                + "Please update the whole file to apply changes!"));
+        JFXDialog dialog = new JFXDialog(dialogStackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXButton btnCloseDialog = new JFXButton("Okay");
+        btnCloseDialog.getStylesheets().add(getClass().getResource("design.css").toExternalForm());
+        btnCloseDialog.getStyleClass().add("closeDialog");
+        btnCloseDialog.setOnMouseClicked((MouseEvent event) -> {
+            dialog.close();
+            dialogStackPane.setMouseTransparent(true);
+            setUpListViewEvents();
+            displayEventList();
+        });
+        content.setActions(btnCloseDialog);
+        dialog.show();
+        dialogStackPane.setMouseTransparent(false);
+    }
+
+    public void removeProjectFromEvent() {
+        Event thisEvent = eventCollection.getEvent(currentEventIndex);
+        Project thisProject = projects.get(currentProjectIndex);
+        if (thisEvent.hasProject(thisProject)) {
+            LinkList pList = thisEvent.getProjectList();
+            for (int i = 0; i < pList.getNoOfElement(); i++) {
+                if (pList.get(i) == thisProject) {
+                    pList.remove(i);
+                }
+            }
+            //Creates dialog to inform user project has been removed from event
+            JFXDialogLayout content = new JFXDialogLayout();
+            Label dialogHeader = new Label();
+            dialogHeader.setText("Updated");
+            dialogHeader.setStyle("-fx-text-fill: #eda678; -fx-font-size: 28;");
+            content.setHeading(dialogHeader);
+            content.setBody(new Text("This project has been successfully removed! \n"
+                    + "Please update the whole file to apply changes!"));
+            JFXDialog dialog = new JFXDialog(dialogStackPane, content, JFXDialog.DialogTransition.CENTER);
+            JFXButton btnCloseDialog = new JFXButton("Okay");
+            btnCloseDialog.getStylesheets().add(getClass().getResource("design.css").toExternalForm());
+            btnCloseDialog.getStyleClass().add("closeDialog");
+            btnCloseDialog.setOnMouseClicked((MouseEvent event) -> {
+                dialog.close();
+                dialogStackPane.setMouseTransparent(true);
+                setUpListViewEvents();
+                displayEventList();
+            });
+            content.setActions(btnCloseDialog);
+            dialog.show();
+            dialogStackPane.setMouseTransparent(false);
+        } else {
+            //Creates dialog to inform user that the event does not contain this project 
+            JFXDialogLayout content = new JFXDialogLayout();
+            Label dialogHeader = new Label();
+            dialogHeader.setText("Updated");
+            dialogHeader.setStyle("-fx-text-fill: #eda678; -fx-font-size: 28;");
+            content.setHeading(dialogHeader);
+            content.setBody(new Text("This event does not contain that event! \n"));
+            JFXDialog dialog = new JFXDialog(dialogStackPane, content, JFXDialog.DialogTransition.CENTER);
+            JFXButton btnCloseDialog = new JFXButton("Okay");
+            btnCloseDialog.getStylesheets().add(getClass().getResource("design.css").toExternalForm());
+            btnCloseDialog.getStyleClass().add("closeDialog");
+            btnCloseDialog.setOnMouseClicked((MouseEvent event) -> {
+                dialog.close();
+                dialogStackPane.setMouseTransparent(true);
+                setUpListViewEvents();
+                displayEventList();
+            });
+            content.setActions(btnCloseDialog);
+            dialog.show();
+            dialogStackPane.setMouseTransparent(false);
+        }
     }
 
     public void loadAndDisplayProjectList() {
@@ -227,6 +467,25 @@ public class MainGUIController implements Initializable {
         }
         setUpTreeTableViewProject();
 
+    }
+
+    public void displayEventList() {
+        String eventTitle = "";
+        for (int i = 0; i < eventCollection.getNoOfEvents(); i++) {
+            Event e = eventCollection.getEvent(i);
+            String projectDesc = "";
+            for (int w = 0; w < e.getNumberOfProject(); w++) {
+                Project p = e.getProject(w);
+                projectDesc += "\t" + (w + 1) + ": " + String.format("%-25s", p.getProjectTitle()) + String.format("%-25s", p.getSchool()) + String.format("%-25s", p.getSupervisorName()) + "\n";
+            }
+            projectDesc += "\n";
+            eventTitle += "Event " + (i + 1) + "\t" + e.getEventTitle() + "\n" + projectDesc;
+        }
+        taEventDisplay.setText(eventTitle);
+    }
+
+    public void displaySelectedEvent() {
+        tfEventTitle.setText(eventCollection.getEvent(currentEventIndex).getEventTitle());
     }
 
     public void displaySelectedProject() {
@@ -243,7 +502,7 @@ public class MainGUIController implements Initializable {
         tfAdminNo.setText(students.get(currentStudentIndex).getAdmissionNo());
         tfCourse.setText(students.get(currentStudentIndex).getCourse());
         tfName.setText(students.get(currentStudentIndex).getName());
-        if(students.get(currentStudentIndex).getGender() == Gender.MALE) {
+        if (students.get(currentStudentIndex).getGender() == Gender.MALE) {
             genderBox.getSelectionModel().select("Male");
         } else {
             genderBox.getSelectionModel().select("Female");
@@ -255,6 +514,7 @@ public class MainGUIController implements Initializable {
         Platform.exit();
     }
 
+    /*
     public void addProject(MouseEvent evt) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("AddProject.fxml"));
         Stage stage = new Stage();
@@ -290,13 +550,12 @@ public class MainGUIController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+     */
     public void setUpTreeTableViewProject() {
         //Set up title column
         JFXTreeTableColumn<ttvProject, String> titleCol = new JFXTreeTableColumn<>("Title");
         titleCol.setPrefWidth(97);
         titleCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<ttvProject, String> param) -> param.getValue().getValue().title);
-
         //Set up school column
         JFXTreeTableColumn<ttvProject, String> schoolCol = new JFXTreeTableColumn<>("School");
         schoolCol.setPrefWidth(97);
@@ -355,8 +614,47 @@ public class MainGUIController implements Initializable {
                 }
             }
             btnUpdateStudentInfo.setDisable(false);
+            btnRemoveStudent.setDisable(false);
         });
 
+    }
+
+    public void setUpListViewEvents() {
+        lvEvents.getItems().clear();
+        for (int i = 0; i < eventCollection.getNoOfEvents(); i++) {
+            lvEvents.getItems().add(eventCollection.getEvent(i).getEventTitle());
+        }
+        /*
+        ObservableList<String> rawData = FXCollections.observableArrayList(lvEvents.getItems());
+        FilteredList<String> filteredList = new FilteredList<>(rawData, data -> true);
+        tfEventTitle.textProperty().addListener(((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(data -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                if (data.contains(newValue)) {
+                    return true; // Filter matches
+                }
+
+                return false; // Does not match
+            });
+            lvEvents.setItems(filteredList);
+        }));
+         */
+
+        lvEvents.setOnMouseClicked((MouseEvent event) -> {
+            String eventTitle = lvEvents.getSelectionModel().getSelectedItem();
+            for (int i = 0; i < eventCollection.getNoOfEvents(); i++) {
+                if (eventCollection.getEvent(i).getEventTitle().equals(eventTitle)) {
+                    currentEventIndex = i;
+                    displaySelectedEvent();
+                    break;
+                }
+            }
+            btnAddProjectToEvent.setDisable(false);
+            btnRemoveProjectFromEvent.setDisable(false);
+        });
     }
 
     class ttvProject extends RecursiveTreeObject<ttvProject> {
@@ -370,6 +668,63 @@ public class MainGUIController implements Initializable {
             this.school = new SimpleStringProperty(school);
             this.supervisor = new SimpleStringProperty(supervisor);
         }
+    }
+
+    public void sortEventListByNumberOfProjectAsc() {
+        //Radix sort
+
+        // Step 1: Create 10 Queues
+        Queue[] queues = new Queue[10];
+
+        for (int i = 0; i < 10; i++) {
+            queues[i] = new Queue();
+        }
+        LinkList eventList = eventCollection.getEventList();
+        // Step 2: Process each digit in the number
+        for (int u = 0; u < 1; u++) {
+            int divisor = (int) Math.pow(10, u);
+            for (int i = 0; i < eventList.getNoOfElement(); i++) {
+                Event e = (Event) eventList.get(i);
+                int qNo = (e.getNumberOfProject() / divisor) % 10;
+                queues[qNo].enqueue(e);
+            }
+            eventList.removeAll();
+            for (int k = 0; k < 10; k++) {
+                while (!queues[k].isEmpty()) {
+                    eventList.addLast((Event) queues[k].dequeue());
+                }
+            }
+        }
+        eventCollection.setEventList(eventList);
+        displayEventList();
+    }
+
+    public void sortEventListByNumberOfProjectDesc() {
+        //Radix sort
+        // Step 1: Create 10 Queues
+        Queue[] queues = new Queue[10];
+
+        for (int i = 0; i < 10; i++) {
+            queues[i] = new Queue();
+        }
+        LinkList eventList = eventCollection.getEventList();
+        // Step 2: Process each digit in the number
+        for (int u = 0; u < 1; u++) {
+            int divisor = (int) Math.pow(10, u);
+            for (int i = 0; i < eventList.getNoOfElement(); i++) {
+                Event e = (Event) eventList.get(i);
+                int qNo = (e.getNumberOfProject() / divisor) % 10;
+                queues[qNo].enqueue(e);
+            }
+            eventList.removeAll();
+            for (int k = 0; k < 10; k++) {
+                while (!queues[k].isEmpty()) {
+                    eventList.add(0, (Event) queues[k].dequeue());
+                }
+            }
+        }
+        eventCollection.setEventList(eventList);
+        displayEventList();
     }
 
 }
